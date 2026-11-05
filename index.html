@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1b1230">
+<title>L'Anima del Palio</title>
+<meta name="description" content="Siena, le sue 17 contrade, i loro amori e le loro rivalità. Un viaggio nell'anima del Palio.">
+<style>
+:root{
+  --stone:#e9dcc3;--stone2:#d9c7a4;--ink:#2a1a14;--night:#1b1230;--dusk:#3a1f3d;--ember:#c8553d;
+  --gold:#c9972b;--red:#a3231f;--blue:#1f4f8b;--paper:#f6ecd7;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --sans:ui-rounded,"Avenir Next",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--paper);font-family:var(--serif);line-height:1.6;font-size:18px;overflow-x:hidden}
+a{color:var(--gold)}
+button{font:inherit;color:inherit;cursor:pointer}
+.sr{position:absolute;left:-9999px}
+/* top bar */
+header.bar{position:fixed;z-index:50;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;
+  padding:max(10px,env(safe-area-inset-top)) 14px 10px;background:linear-gradient(#1b1230ee,#1b123000);pointer-events:none}
+header.bar>*{pointer-events:auto}
+.logo{font-family:var(--serif);letter-spacing:.14em;font-size:13px;text-transform:uppercase;color:var(--gold);text-decoration:none;background:none;border:0;padding:6px 0}
+.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tools button{background:#ffffff14;border:1px solid #ffffff30;border-radius:99px;padding:5px 12px;font-family:var(--sans);font-size:13px;backdrop-filter:blur(6px)}
+.tools button.on{background:var(--gold);color:#2a1a14;border-color:var(--gold)}
+main{min-height:100vh}
+section.page{display:none;animation:fade .7s ease both}
+section.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  background:radial-gradient(120% 70% at 50% 100%,#e0803f 0%,#a8434a 22%,#5b2a58 48%,#2b1646 72%,#1b1230 100%);overflow:hidden;padding-top:56px}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.0;animation:tw 4s infinite}
+@keyframes tw{50%{opacity:.9}}
+.hero h1{margin:6px 16px 0;text-align:center;font-weight:400;font-size:clamp(34px,8vw,64px);line-height:1.05;letter-spacing:.02em;text-shadow:0 2px 30px #0008}
+.hero h1 em{display:block;font-size:.4em;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-style:normal;margin-bottom:8px}
+.hero p.lead{max-width:34ch;text-align:center;margin:10px 18px;color:#f3e3c8;font-size:17px;opacity:.92}
+.ringwrap{width:min(96vw,720px);aspect-ratio:1;position:relative;margin-top:-4px}
+svg{display:block;max-width:100%}
+.ring{transform-origin:300px 300px;animation:spin 240s linear infinite}
+.ringwrap:hover .ring,.ringwrap:hover .flag{animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+.flag{transform-box:fill-box;transform-origin:center;animation:unspin 240s linear infinite;cursor:pointer}
+@keyframes unspin{to{transform:rotate(-360deg)}}
+.flag g.fl{transition:transform .4s ease}
+.flag:hover g.fl,.flag:focus g.fl{transform:scale(1.35)}
+.flag text{font-family:var(--serif);font-size:13px;fill:#f6ecd7;letter-spacing:.06em;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
+.wave{animation:wave 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+@keyframes wave{50%{transform:skewY(5deg) scaleX(.94)}}
+.cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:6px 14px 40px}
+.btn{font-family:var(--sans);background:var(--gold);color:#2a1a14;border:0;border-radius:99px;padding:12px 22px;font-size:15px;text-decoration:none;display:inline-block;letter-spacing:.02em;transition:transform .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:#ffffff14;color:var(--paper);border:1px solid #ffffff44}
+.hint{font-family:var(--sans);font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.7;text-align:center;margin:0 0 6px}
+/* generic blocks */
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.light{background:var(--stone);color:var(--ink)}
+.light a{color:var(--red)}
+h2{font-weight:400;font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 .4em}
+h3{font-weight:400;font-size:24px;margin:1.4em 0 .3em}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+.light .eyebrow{color:var(--red)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:18px 0}
+.tile{position:relative;border:0;text-align:left;border-radius:16px;padding:14px;min-height:120px;background:#ffffff0f;border:1px solid #ffffff20;overflow:hidden;color:inherit;text-decoration:none;display:block;transition:transform .3s,background .3s}
+.light .tile{background:#fffaf0;border-color:#0002}
+.tile:hover{transform:translateY(-4px)}
+.tile b{display:block;font-weight:400;font-size:20px}
+.tile small{font-family:var(--sans);opacity:.7;font-size:12px}
+.stripe{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:10px}
+.stripe i{flex:1}
+.badge{font-family:var(--sans);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:#c9972b33;color:var(--gold);border:1px dashed var(--gold);vertical-align:middle;white-space:nowrap}
+.light .badge{color:#7a5410;background:#c9972b22;border-color:#7a5410}
+.fonte{font-family:var(--sans);font-size:12px;opacity:.85;white-space:nowrap}
+.fonte a{text-decoration:underline dotted}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--gold);font-style:italic}
+footer{background:#120b20;color:#cdbb9a;font-family:var(--sans);font-size:12.5px;padding:28px 18px 40px;text-align:center}
+footer a{color:var(--gold)}
+nav.tabs{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:58px 14px 10px;background:linear-gradient(#1b1230f2 70%,#1b123000);scrollbar-width:none}
+nav.tabs a{flex:none;font-family:var(--sans);font-size:13px;text-decoration:none;color:var(--paper);border:1px solid #ffffff33;border-radius:99px;padding:6px 14px}
+nav.tabs a.on{background:var(--gold);color:#2a1a14;border-color:var(--gold)}
+/* contrada world */
+.world{min-height:70vh;padding-bottom:60px;position:relative}
+.world .top{padding:90px 18px 30px;text-align:center;position:relative;overflow:hidden}
+.world .top h2{font-size:clamp(40px,11vw,84px);letter-spacing:.02em;margin:10px 0 0}
+.world .emblem{width:min(56vw,240px);margin:0 auto;filter:drop-shadow(0 12px 24px #0006)}
+.stat{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.stat div{text-align:center;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.stat b{display:block;font-family:var(--serif);font-size:40px;font-weight:400;letter-spacing:0;color:var(--gold)}
+.chars{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 14px}
+.char{flex:none;width:168px;scroll-snap-align:start;border-radius:18px;padding:14px;background:#ffffff10;border:1px solid #ffffff25;text-decoration:none;color:inherit;transition:transform .3s}
+.char:hover{transform:translateY(-4px)}
+.char .vs{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.arc{height:60px}
+/* bars */
+.bars{display:flex;flex-direction:column;gap:7px;margin:14px 0}
+.barrow{display:grid;grid-template-columns:96px 1fr 44px;gap:8px;align-items:center;font-family:var(--sans);font-size:13px;cursor:pointer;background:none;border:0;text-align:left;color:inherit;padding:2px 0}
+.barrow .tr{height:20px;background:#0001;border-radius:10px;overflow:hidden}
+.light .barrow .tr{background:#0001}
+.barrow .fill{height:100%;border-radius:10px;transition:width .8s cubic-bezier(.2,.8,.2,1);display:flex}
+.barrow .fill i{flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{font-family:var(--sans);font-size:12.5px;border:1px solid #0003;background:#fff8;border-radius:99px;padding:5px 12px;color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper)}
+/* web */
+.webwrap{background:radial-gradient(circle at 50% 40%,#2d1a4a,#1b1230 70%);padding:0 0 30px}
+.webwrap svg{margin:0 auto;width:min(100%,640px)}
+.edge{stroke:#c8553d;stroke-width:1.6;opacity:.55;cursor:pointer;transition:all .3s}
+.edge:hover,.edge.hl{opacity:1;stroke-width:4;stroke:#ff8a5c}
+.edge.dim{opacity:.1}
+.node{cursor:pointer}
+.node text{font-family:var(--sans);font-size:10.5px;fill:#f6ecd7;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
+.episodes{list-style:none;padding:0;margin:20px 0;position:relative}
+.episodes:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--gold),var(--ember))}
+.episodes li{position:relative;padding:0 0 22px 36px}
+.episodes li:before{content:"";position:absolute;left:2px;top:8px;width:16px;height:16px;border-radius:50%;background:var(--night);border:3px solid var(--gold)}
+.episodes .when{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.episodes .ep{font-size:17px}
+/* oggi, quiz */
+.card{border-radius:22px;padding:26px 22px;background:linear-gradient(160deg,#fff8e8,#ecdcb8);color:var(--ink);box-shadow:0 20px 50px #0005}
+.quiz .opts{display:grid;gap:10px;margin:16px 0}
+.quiz .opts button{text-align:left;border:1px solid #0003;background:#fffaf0;border-radius:14px;padding:14px 16px;font-size:17px;color:var(--ink);transition:transform .2s,background .2s}
+.quiz .opts button:hover{transform:translateX(4px);background:#fff}
+.prog{height:4px;background:#0002;border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--red);transition:width .5s}
+.scene{position:fixed;inset:0;z-index:-1;background:var(--night)}
+@media (min-width:820px){body{font-size:19px}.tiles{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.barrow{grid-template-columns:130px 1fr 54px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <button class="logo" data-go="#/">Anima del Palio</button>
+  <div class="tools">
+    <button id="bIt" class="on">IT</button><button id="bEn">EN</button>
+  </div>
+</header>
+<main id="main"></main>
+<footer>
+  <div id="f1"></div>
+  <div style="margin-top:8px">Dati e storie del Palio: archivio di Orlando Papei, <a href="https://www.ilpalio.org/" target="_blank" rel="noopener">www.ilpalio.org</a>, CC BY-NC 4.0</div>
+  <div style="margin-top:8px;opacity:.75">Nessuna pubblicità, nessun tracciamento. · No ads, no tracking.</div>
+</footer>
+
+<script>
+"use strict";
+/* ============ DATA ============ */
+const SRC="https://www.ilpalio.org/";
+const fonte=(file,label)=>`<span class="fonte">Fonte: <a href="${SRC}${file}" target="_blank" rel="noopener">${label||file}</a></span>`;
+const DV='<span class="badge" title="Informazione di pubblico dominio, da controllare">da verificare</span>';
+
+/* Palii vinti: SOLO da vinti.htm  [1600,1700,1800,1900,2000,totale] */
+const C=[
+ {id:"aquila",n:"Aquila",w:[0,7,6,11,1,25],col:["#f2c230","#1a1a1a","#2a5db0"],em:"aquila",vit:"vittoriecontradeaquila.htm"},
+ {id:"bruco",n:"Bruco",w:[2,7,16,5,3,33],col:["#2f8f4e","#f2c230","#2a5db0"],em:"bruco",vit:"vittoriecontradebruco.htm"},
+ {id:"chiocciola",n:"Chiocciola",w:[2,19,14,14,0,49],col:["#c0302c","#f2c230","#2a5db0"],em:"chiocciola",vit:"vittoriecontradechiocciola.htm"},
+ {id:"civetta",n:"Civetta",w:[1,7,15,8,2,33],col:["#1a1a1a","#c0302c","#f6ecd7"],em:"civetta",vit:"vittoriecontradecivetta.htm"},
+ {id:"drago",n:"Drago",w:[2,8,9,16,4,39],col:["#c0302c","#2f8f4e","#f2c230"],em:"drago",vit:"vittoriecontradedrago.htm"},
+ {id:"giraffa",n:"Giraffa",w:[2,5,9,15,4,35],col:["#f6ecd7","#c0302c"],em:"giraffa",vit:"vittoriecontradegiraffa.htm"},
+ {id:"istrice",n:"Istrice",w:[1,10,15,9,3,38],col:["#f6ecd7","#c0302c","#1a1a1a","#2a5db0"],em:"istrice",vit:"vittoriecontradeistrice.htm"},
+ {id:"leocorno",n:"Leocorno",w:[1,3,11,10,4,29],col:["#f6ecd7","#f08a24","#4a9bd6"],em:"leocorno",vit:"vittoriecontradeleocorno.htm"},
+ {id:"lupa",n:"Lupa",w:[1,11,11,11,4,38],col:["#f6ecd7","#1a1a1a","#f08a24"],em:"lupa",vit:"vittoriecontradelupa.htm"},
+ {id:"nicchio",n:"Nicchio",w:[8,10,11,16,1,46],col:["#2a5db0","#f2c230","#c0302c"],em:"nicchio",vit:"vittoriecontradenicchio.htm"},
+ {id:"oca",n:"Oca",w:[6,14,20,20,5,65],col:["#f6ecd7","#2f8f4e","#c0302c"],em:"oca",vit:"vittoriecontradeoca.htm"},
+ {id:"onda",n:"Onda",w:[7,9.5,14,11,4,45.5],col:["#f6ecd7","#4a9bd6"],em:"onda",vit:"vittoriecontradeonda.htm"},
+ {id:"pantera",n:"Pantera",w:[2,6,7,9,1,25],col:["#c0302c","#2a5db0","#f6ecd7"],em:"pantera",vit:"vittoriecontradepantera.htm"},
+ {id:"selva",n:"Selva",w:[2,11,6,14,7,40],col:["#2f8f4e","#f08a24","#f6ecd7"],em:"selva",vit:"vittoriecontradeselva.htm"},
+ {id:"tartuca",n:"Tartuca",w:[2,11.5,17,12,5,47.5],col:["#f2c230","#4a9bd6"],em:"tartuca",vit:"vittoriecontradetartuca.htm"},
+ {id:"torre",n:"Torre",w:[3,12,20,5,2,42],col:["#c0302c","#f6ecd7","#2a5db0"],em:"torre",vit:"vittoriecontradetorre.htm"},
+ {id:"valdimontone",n:"Valdimontone",w:[1,16,10,15,2,44],col:["#f6ecd7","#c0302c","#f2c230"],em:"montone",vit:"vittoriecontradevaldimontone.htm"},
+];
+const byId=Object.fromEntries(C.map(c=>[c.id,c]));
+const ERA=["1600","1700","1800","1900","2000"];
+
+/* Rivalità: i file esistono nell'indice rivali.htm. Episodi: parafrasi dal testo di Filiani–Zaffaroni (ilpalio.org). */
+const R=[
+ {k:"aqupan",a:"aquila",b:"pantera",since:"1947",
+  t:["Da alleate a nemiche","Quando l'alleanza si ruppe"],
+  intro:"Molti credono che la loro inimicizia sia antichissima. L'archivio dice il contrario: è tra le più giovani, nata ufficialmente nel 1947, dopo due secoli di amicizia.",
+  ep:[["1730","L'accordo della questua","Dopo che l'Aquila torna a esistere, la Pantera ottiene di poter mandare il suo «accattano» a chiedere la questua in Piazza Postierla, a patto di rinnovare il patto ogni tre anni. Da quel patto nasce un'alleanza, rinnovata nel 1788."],
+   ["16 agosto 1936","Il grigio che cade","La Pantera è favorita con il portentoso Ruello, montato da Meloncino. L'Aquila ha la vecchia Rondinella, affidata a Ganascia. Tra i due fantini c'è del rancore: nel 1933 Ganascia aveva nerbato violentemente il padre di Meloncino, Picino. Al canape cala, Ruello cade, Meloncino resta in ospedale con sessanta giorni di prognosi. Il seme è gettato."],
+   ["Agosto 1946","L'ordine del Capitano","Il Capitano panterino Nello Brogi ordina al suo fantino Ranco «una solenne nerbatura dell'Aquila». Ranco obbedisce, e colpisce Ruscetto, che monta Ilary per l'Aquila. L'alleanza resiste, ma ormai solo di nome."],
+   ["12 settembre 1947","L'altoparlante","Festa titolare dell'Aquila. I panterini sono lì, ospiti, a rendere omaggio all'alleata. Da un altoparlante qualcuno comincia a insultare la Pantera con riferimenti al 1936. Le bandiere panterine vengono tolte dall'oratorio; pare volino anche manate in un luogo sacro."],
+   ["22 dicembre 1947","La rottura","L'assemblea della Pantera, a larghissima maggioranza, interrompe la secolare alleanza. Comincia una delle rivalità più sentite."]]},
+ {k:"chitar",a:"chiocciola",b:"tartuca",since:"sec. XVII",
+  t:["Le sorelle che si riappacificano"],
+  intro:"Una delle rivalità più antiche e radicate, con una particolarità: è stata interrotta e ripresa più volte. Le riappacificazioni sono la parte più interessante.",
+  ep:[["Luglio 1686","Il tumulto della tratta","Il Palio viene posticipato al 28 e vince la Giraffa. Durante la tratta esplode un tumulto tra Chiocciola e Tartuca: bastonate e colpi proibiti. Le autorità pensano di escluderle dalla carriera, poi il Governatore ritira l'ordinanza, a patto che non entrino in piazza con la comparsa armata."],
+   ["13 giugno 1689","Sant'Antonio, insieme","Appena tre anni dopo, le due contrade onorano insieme Sant'Antonio da Padova, patrono della Tartuca."],
+   ["Agosto 1701","Un Te Deum a quattro","La Chiocciola vince con Giuseppone, la Tartuca è seconda. Le due comparse, con i Capitani e l'alleata Torre, vanno insieme nella chiesa dell'Oca a cantare il Te Deum."]]},
+ {k:"civleo",a:"civetta",b:"leocorno",since:"1960",
+  t:["La più giovane"],
+  intro:"È la più recente: nata ufficialmente nel 1960, tra dissidi di confine, sfottò e un Palio vinto in modo schiacciante.",
+  ep:[["Settembre 1954","«Barbagianni»","Dopo uno straordinario vinto dal Leocorno, negli stornelli dei vincitori la Civetta viene ridotta a «barbagianni»."],
+   ["4 settembre 1960","Il sorriso di Ciancone","Palio straordinario. La Civetta con Ciancone e Uberta de Mores è così superiore che il Palio è deciso già al primo San Martino. Ciancone arriva sorridente; secondo, molto staccato, il Leocorno con Tristezza su Capriola."],
+   ["1960","La risposta","I civettini, esaltati, rispondono agli sfottò di anni prima; circolano cartelli che irridono pesantemente l'insegna della Contrada di Pantaneto. È l'inizio ufficiale della rivalità."]]},
+ {k:"istlup",a:"istrice",b:"lupa",since:"1929",
+  t:["Una bandiera di troppo"],
+  intro:"Nel 1928 l'Istrice mandava alla Lupa un saluto affettuoso: «Alla Contrada Alleata e Fedele…». Pochi mesi dopo, tutto cambia per un lembo di territorio.",
+  ep:[["14 ottobre 1928","L'ultimo saluto da alleate","Il popolo dell'Istrice scrive alla Lupa, riunita per il banchetto annuale, augurandole la vittoria: «evviva la Lupa!»."],
+   ["Luglio 1929","Le bandiere in Via Garibaldi","La Lupa monta per la terza volta Bubbolo, senese e istriciaiolo, segno di rapporti ottimi. Ma nei giorni di Palio i lupaioli appongono le loro bandiere sul lato sinistro di Via Garibaldi, presso il palazzo Ricci Campana. Per gli istriciaioli quelle bandiere devono tornare nella Stufa Secca. Da qui comincia la rottura."]]},
+ {k:"nicmon",a:"nicchio",b:"valdimontone",since:"cinquant'anni (secondo la pagina)",
+  t:["Pace, vino e bastonate"],
+  intro:"Per secoli un rapporto altalenante tra consorelle confinanti, un'alleanza stretta nel 1685 «almeno formalmente»… e tanti malintesi.",
+  ep:[["Settembre 1685","Un'alleanza destinata a durare","Nicchio e Montone stringono un'alleanza che durerà, sulla carta, per secoli. Ma tra le due non correva buon sangue."],
+   ["1786","L'ariete che dava vino","Per l'inaugurazione di Palazzo Bianchi, il Cavalier Bianchi, maggiorente del Montone, fa costruire un ariete di legno da cui sgorga vino. I nicchiaioli bevono e sbandierano insieme ai montonaioli."],
+   ["Luglio 1791","Cinque anni dopo","Il Nicchio vince con il fantino Ciocio nonostante l'ostacolo di Annibale nel Montone, che rientra in pista per fermarlo. Gli organizzatori annunciano che il Montone pagherebbe il Palio al Nicchio, se fosse riuscito a impedirne la vittoria."]]},
+ {k:"brugir",a:"bruco",b:"giraffa"},{k:"brunic",a:"bruco",b:"nicchio"},{k:"dralup",a:"drago",b:"lupa"},
+ {k:"nicoca",a:"nicchio",b:"oca"},{k:"nictor",a:"nicchio",b:"torre"},{k:"ocator",a:"oca",b:"torre"},
+ {k:"ondtor",a:"onda",b:"torre"},{k:"pansel",a:"pantera",b:"selva"},
+];
+R.forEach(r=>{r.file="rivali_"+r.k+".htm"});
+
+/* Storie del giorno: tutte dalla fonte (parafrasi + fonte) */
+const OGGI=[
+ {h:"Il grigio che cade",b:"16 agosto 1936: la Pantera ha il grigio Ruello, che aveva vinto i tre Palii precedenti. L'Aquila ha la vecchia Rondinella. Al canape, il cavallo cade.",r:"aqupan"},
+ {h:"Un ariete che dà vino",b:"1786: il Cavalier Bianchi fa costruire un ariete di legno da cui sgorga vino, e due contrade nemiche brindano insieme.",r:"nicmon"},
+ {h:"Barbagianni",b:"Un solo insulto nei canti dei vincitori, nel 1954, e sei anni dopo nasce una rivalità.",r:"civleo"},
+ {h:"Il Te Deum a quattro",b:"Agosto 1701: vincitrice e seconda vanno insieme, con la loro alleata, a cantare il Te Deum nella chiesa dell'Oca.",r:"chitar"},
+ {h:"Una bandiera sul lato sbagliato",b:"Via Garibaldi, luglio 1929: basta una bandiera in più perché due alleate smettano di esserlo.",r:"istlup"},
+ {h:"L'accattano",b:"1730: per poter chiedere la questua in Piazza Postierla, la Pantera accetta di rinnovare il patto ogni tre anni. Nasce un'amicizia che durerà due secoli.",r:"aqupan"},
+ {h:"La Contrada che vince di più",b:"L'Oca: 65 Palii vinti, secondo il totale di Orlando Papei. La seconda, la Tartuca, ne ha 47½: sì, mezza vittoria esiste.",r:null,f:"vinti.htm"},
+];
+
+/* Quiz (gioco, non scienza): ogni risposta spinge verso alcune contrade */
+const Q=[
+ {q:"Il tramonto sta calando sulla Piazza. Dove sei?",o:[["Sul bordo alto, a guardare tutto",["aquila","torre","civetta"]],["Nel mezzo della folla, abbracciato a sconosciuti",["oca","chiocciola","nicchio"]],["Sotto una finestra, con un bicchiere",["giraffa","leocorno","onda"]],["Già fuori, in un vicolo dove si canta",["lupa","istrice","selva"]]]},
+ {q:"La tua qualità migliore?",o:[["Lealtà ostinata",["tartuca","pantera","valdimontone"]],["Fantasia",["leocorno","bruco","drago"]],["Memoria lunga (anche dei torti)",["istrice","lupa","aquila"]],["Allegria contagiosa",["oca","onda","giraffa"]]]},
+ {q:"Il tuo animale interiore?",o:[["Quello che nessuno vede arrivare",["pantera","civetta","drago"]],["Quello che non molla",["tartuca","chiocciola","istrice"]],["Quello che corre",["valdimontone","nicchio","selva"]],["Quello che sta in alto",["aquila","giraffa","torre"]]]},
+ {q:"Cosa fai dopo una sconfitta?",o:[["Canto lo stesso",["onda","oca","bruco"]],["Prometto vendetta, con garbo",["pantera","aquila","lupa"]],["Aspetto. Il Palio è lungo",["tartuca","selva","torre"]],["Offro da bere ai rivali",["leocorno","nicchio","giraffa"]]]},
+];
+const NOTES={}; /* storie per contrada: solo dove l'archivio è stato letto */
+const WORLD={
+ aquila:"Con la Pantera ha vissuto due secoli d'alleanza e poi una rottura nel 1947: la sua storia nel Palio è un amore finito, raccontato qui nei dettagli.",
+ pantera:"Dalla questua di Piazza Postierla alla caduta di Ruello nel 1936: la Pantera è, con l'Aquila, una storia d'amicizia finita male.",
+ chiocciola:"Con la Tartuca ha litigato nel Seicento e si è riappacificata più volte. Da quasi 350 anni le due sorelle non riescono né a stare insieme né a lasciarsi.",
+ tartuca:"Sorella ed avversaria della Chiocciola, patrona Sant'Antonio da Padova: l'archivio ricorda che nel 1689 le due contrade lo onorarono insieme.",
+ civetta:"Contrada «Priora». Il suo grande momento di gloria, e di guai, è un Palio straordinario del 1960 vinto con un sorriso.",
+ leocorno:"Secondo, staccatissimo, nello straordinario del 4 settembre 1960. Da quel giorno la sua storia con la Civetta cambia per sempre.",
+ istrice:"Per anni alleata fedele della Lupa, finché una bandiera in Via Garibaldi, nel 1929, cambia tutto.",
+ lupa:"Montò Bubbolo, istriciaiolo, nel 1929 — poi le bandiere in Via Garibaldi. La rivalità con l'Istrice è la sua storia più nota.",
+ nicchio:"Un'alleanza del 1685 con il Montone, un ariete di legno che versa vino nel 1786 e un Palio vinto nel 1791 con Ciocio.",
+ valdimontone:"Il 1786 e l'ariete che dava vino; il 1791 e un Annibale che rientra in pista per fermare il Nicchio.",
+};
+
+/* Testi interfaccia IT/EN */
+const L={
+ it:{title:"L'Anima del Palio",kicker:"Siena · 17 contrade",lead:"Diciassette bandiere girano intorno alla Piazza. Toccane una e entra nel suo mondo.",hint:"Tocca una bandiera",
+  rivalry:"Chi odia chi",stats:"Palii vinti",today:"Oggi nel Palio",quiz:"Il mio Palio",world:"Contrade",
+  wins:"Palii vinti",rivals:"Rivali e alleate",story:"La storia",colors:"I suoi colori",back:"Indietro",
+  open:"Apri la storia",ep:"Episodi",fonteTot:"Totale: ",storyHere:"Episodi (parafrasi, dalla fonte)",
+  statsSub:"Tocca una barra. Ordina, filtra per secolo.",byWins:"per vittorie",byAZ:"A–Z",all:"Tutti i secoli",
+  quizStart:"Scopri di che contrada sei",quizAgain:"Rifai il gioco",quizNote:"È un gioco: nessuna scienza, solo carattere.",
+  you:"Sei…",soon:"(in arrivo)",
+  footer:"Un progetto non commerciale. Storie in italiano; interfaccia IT/EN.",webTitle:"Chi odia chi",webSub:"Ogni linea è una rivalità documentata nell'archivio. Tocca una linea o una contrada.",
+  todayLead:"Una storia ogni giorno.",mapSoon:"La mappa dei tre Terzi di Siena arriva nel prossimo capitolo. (in arrivo)",since:"Dal",no:"Nessuna pagina di storia ancora: apri la fonte.",
+  rivalry_in:"Rivalità documentate in archivio"},
+ en:{title:"The Soul of the Palio",kicker:"Siena · 17 contrade",lead:"Seventeen flags drift around the Piazza. Tap one and step into its world.",hint:"Tap a flag",
+  rivalry:"Who hates whom",stats:"Palii won",today:"Today in the Palio",quiz:"My Palio",world:"Contrade",
+  wins:"Palii won",rivals:"Rivals and allies",story:"The story",colors:"Its colors",back:"Back",
+  open:"Open the story",ep:"Episodes",fonteTot:"Total: ",storyHere:"Episodes (paraphrased from the source)",
+  statsSub:"Tap a bar. Sort, filter by century.",byWins:"by wins",byAZ:"A–Z",all:"All centuries",
+  quizStart:"Find out which contrada you are",quizAgain:"Play again",quizNote:"It's a game: no science, just character.",
+  you:"You are…",soon:"(coming soon)",
+  footer:"A non-commercial project. Stories are in Italian; interface IT/EN.",webTitle:"Who hates whom",webSub:"Every line is a rivalry documented in the archive. Tap a line or a contrada.",
+  todayLead:"A new story every day.",mapSoon:"The map of Siena's three Terzi comes in the next chapter. (coming soon)",since:"Since",no:"No story page yet: open the source.",
+  rivalry_in:"Rivalries documented in the archive"},
+};
+let lang=(()=>{try{return localStorage.getItem("lang")||"it"}catch(e){return "it"}})();
+const t=k=>L[lang][k];
+
+/* ============ SVG ILLUSTRATIONS ============ */
+function emblem(c,size){ /* semplici forme eleganti: stendardo con stemma stilizzato */
+  const [a,b,d]=[c.col[0],c.col[1]||c.col[0],c.col[2]||c.col[1]||c.col[0]];
+  const animal={
+   aquila:'<path d="M0 -30 L10 -12 L34 -22 L20 4 L8 8 L0 30 L-8 8 L-20 4 L-34 -22 L-10 -12Z"/><circle cx="0" cy="-20" r="5"/>',
+   bruco:'<g><circle cx="-24" cy="6" r="9"/><circle cx="-8" cy="0" r="10"/><circle cx="9" cy="-4" r="11"/><circle cx="26" cy="-12" r="12"/></g>',
+   chiocciola:'<path d="M-30 20 H26 L30 8 L12 8 C14 -18 -6 -28 -18 -16 C-30 -4 -20 14 -8 12 C-18 4 -10 -8 0 -4 C4 0 2 8 -4 8 L-30 8Z"/>',
+   civetta:'<path d="M-24 -22 L-10 -14 H10 L24 -22 V10 Q24 30 0 30 Q-24 30 -24 10Z"/><circle cx="-10" cy="-2" r="7" fill="#fff"/><circle cx="10" cy="-2" r="7" fill="#fff"/><circle cx="-10" cy="-2" r="3" fill="#000"/><circle cx="10" cy="-2" r="3" fill="#000"/>',
+   drago:'<path d="M-30 20 C-30 -10 -10 -26 8 -18 L28 -26 L22 -10 C32 0 24 20 4 22 C14 8 6 0 -4 6 C-10 12 -16 20 -30 20Z"/>',
+   giraffa:'<path d="M-14 28 L-10 4 L-14 -26 L2 -34 L8 -22 L2 -14 L10 28Z"/><circle cx="-4" cy="-26" r="2" fill="#fff"/>',
+   istrice:'<path d="M-30 22 C-30 -4 -14 -20 4 -20 C22 -20 32 -4 32 22Z"/><path d="M-22 -2 L-30 -14 M-12 -12 L-18 -26 M0 -16 L0 -32 M12 -14 L18 -28 M22 -6 L32 -18" stroke="currentColor" stroke-width="3" fill="none"/>',
+   leocorno:'<path d="M-26 22 L-26 -4 Q-26 -20 -10 -20 L-4 -34 L4 -20 Q22 -20 26 0 L26 22Z"/><path d="M-4 -20 L2 -42 L8 -20Z" fill="#fff"/>',
+   lupa:'<path d="M-28 22 L-24 -10 L-14 -2 L-8 -22 L2 -4 L22 -4 L30 8 L16 12 L10 22Z"/>',
+   nicchio:'<path d="M0 26 C-34 22 -34 -22 0 -26 C34 -22 34 22 0 26Z"/><path d="M0 24 V-24 M-14 22 L-18 -18 M14 22 L18 -18" stroke="#0007" stroke-width="2" fill="none"/>',
+   oca:'<path d="M-20 24 C-8 24 -4 10 -10 -4 C-14 -14 -10 -30 4 -30 C14 -30 14 -18 8 -16 C20 -8 32 4 24 24Z"/>',
+   onda:'<path d="M-34 8 C-22 -10 -12 -10 -2 8 C8 -10 18 -10 34 8 L34 24 H-34Z"/><path d="M-34 -6 C-22 -22 -12 -22 -2 -6 C8 -22 18 -22 34 -6" stroke="currentColor" stroke-width="5" fill="none"/>',
+   pantera:'<path d="M-30 22 C-34 4 -22 -16 -4 -20 L-4 -30 L8 -22 L28 -18 L34 -6 L18 -2 L18 22 L8 22 L8 8 L-14 8 L-18 22Z"/>',
+   selva:'<path d="M0 -30 L22 -4 H10 L26 18 H4 V30 H-4 V18 H-26 L-10 -4 H-22Z"/>',
+   tartuca:'<ellipse cx="0" cy="4" rx="30" ry="22"/><path d="M-30 4 H30 M-10 -16 L-14 24 M10 -16 L14 24" stroke="#0007" stroke-width="2" fill="none"/><circle cx="34" cy="-4" r="8"/>',
+   torre:'<path d="M-14 28 V-14 H-20 V-26 H-10 V-20 H-2 V-26 H2 V-20 H10 V-26 H20 V-14 H14 V28Z"/><rect x="-5" y="4" width="10" height="14" fill="#0007"/>',
+   montone:'<path d="M-24 4 C-34 -14 -14 -30 0 -18 C14 -30 34 -14 24 4 C20 20 8 28 0 28 C-8 28 -20 20 -24 4Z"/><path d="M-22 -12 C-40 -8 -34 14 -20 12" stroke="currentColor" stroke-width="5" fill="none"/>',
+  }[c.em]||'<circle r="22"/>';
+  const cols=c.col, n=cols.length;
+  const stripes=cols.map((x,i)=>`<rect x="${-50+i*100/n}" y="-62" width="${100/n+1}" height="124" fill="${x}"/>`).join("");
+  const id="cp"+c.id+Math.floor(size||0);
+  return `<g>
+   <clipPath id="${id}"><path d="M-50 -62 H50 V30 Q50 56 0 72 Q-50 56 -50 30Z"/></clipPath>
+   <g clip-path="url(#${id})">${stripes}<rect x="-50" y="-62" width="100" height="124" fill="#0000"/></g>
+   <path d="M-50 -62 H50 V30 Q50 56 0 72 Q-50 56 -50 30Z" fill="none" stroke="#c9972b" stroke-width="3"/>
+   <g transform="translate(0,2) scale(1.1)" fill="${d===a?'#2a1a14':d}" style="color:${b}" opacity=".95"><g fill="${pickInk(cols)}" style="color:${pickInk(cols)}">${animal}</g></g>
+  </g>`;
+}
+function lum(h){const n=parseInt(h.slice(1),16);return (0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255}
+function pickInk(cols){return lum(cols[0])>.6?"#2a1a14":"#fbf1d9"}
+
+/* Il Campo a conchiglia: spicchi + Torre del Mangia */
+function campo(){
+  let sl="";
+  for(let i=0;i<9;i++){const a0=(-60+i*15)*Math.PI/180, a1=(-60+(i+1)*15)*Math.PI/180;
+    const r=96; sl+=`<path d="M300 468 L${300+r*Math.sin(a0)*1.55} ${468-r*Math.cos(a0)*1.05} L${300+r*Math.sin(a1)*1.55} ${468-r*Math.cos(a1)*1.05}Z" fill="${i%2?'#b88f5a':'#a67c49'}" opacity=".55"/>`;}
+  return `<g transform="translate(0,-130)">
+    <path d="M150 420 C150 300 450 300 450 420 C450 500 150 500 150 420Z" fill="#8c5a3a" opacity=".5"/>
+    <path d="M168 430 C170 330 430 330 432 430 C434 480 166 480 168 430Z" fill="#c69a6a" opacity=".75"/>
+    ${sl}
+  </g>`;
+}
+function ringSVG(){
+  const cx=300,cy=300,R=235;
+  let g="";
+  C.forEach((c,i)=>{
+    const a=(i/17)*Math.PI*2-Math.PI/2, x=cx+R*Math.cos(a), y=cy+R*Math.sin(a);
+    g+=`<g transform="translate(${x.toFixed(1)},${y.toFixed(1)})"><g class="flag" tabindex="0" role="link" aria-label="${c.n}" data-go="#/c/${c.id}" style="animation-delay:0s"><g class="fl"><g transform="scale(.46)">${emblem(c,i)}</g><text x="0" y="46" text-anchor="middle">${c.n.toUpperCase()}</text></g></g></g>`;
+  });
+  return `<svg viewBox="0 0 600 600" role="img" aria-label="Il Campo con le 17 contrade">
+   <defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb35c" stop-opacity=".55"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>
+   <circle cx="300" cy="300" r="290" fill="url(#glow)"/>
+   <circle cx="300" cy="300" r="235" fill="none" stroke="#c9972b" stroke-opacity=".25" stroke-dasharray="2 8"/>
+   <g transform="translate(300,300) scale(.78) translate(-300,-300)">${campoFull()}</g>
+   <g class="ring">${g}</g>
+  </svg>`;
+}
+function campoFull(){
+  /* piazza a conchiglia vista dall'alto: ventaglio di 9 spicchi, bordo di palazzi, Torre del Mangia in alto */
+  let s="";
+  for(let i=0;i<9;i++){
+    const a0=(-80+i*20)*Math.PI/180,a1=(-80+(i+1)*20)*Math.PI/180;
+    const x0=300+200*Math.sin(a0),y0=360-200*Math.cos(a0)*0.95,x1=300+200*Math.sin(a1),y1=360-200*Math.cos(a1)*0.95;
+    s+=`<path d="M300 420 L${x0.toFixed(1)} ${y0.toFixed(1)} L${x1.toFixed(1)} ${y1.toFixed(1)}Z" fill="${i%2?'#d8b07a':'#c99a60'}"/>`;
+  }
+  return `<ellipse cx="300" cy="372" rx="215" ry="168" fill="#6d3f2c"/>
+   <path d="M95 390 Q300 130 505 390 Q300 520 95 390Z" fill="#b5794c"/>
+   <g>${s}</g>
+   <path d="M95 390 Q300 130 505 390" fill="none" stroke="#f1c27a" stroke-width="3" opacity=".7"/>
+   <!-- Palazzo Pubblico e Torre del Mangia -->
+   <rect x="238" y="338" width="124" height="46" fill="#9b4a35"/><rect x="238" y="330" width="124" height="8" fill="#7d3a29"/>
+   <g fill="#fff2d6" opacity=".55"><rect x="250" y="350" width="6" height="14"/><rect x="266" y="350" width="6" height="14"/><rect x="282" y="350" width="6" height="14"/><rect x="312" y="350" width="6" height="14"/><rect x="328" y="350" width="6" height="14"/><rect x="344" y="350" width="6" height="14"/></g>
+   <rect x="291" y="168" width="18" height="170" fill="#8e3f2d"/>
+   <rect x="284" y="150" width="32" height="24" fill="#a64d38"/><path d="M280 150 H320 V140 H312 V146 H304 V140 H296 V146 H288 V140 H280Z" fill="#a64d38"/>
+   <circle cx="300" cy="134" r="12" fill="#f4e6c6"/><path d="M296 144 H304 L300 112Z" fill="#8e3f2d"/>
+   <circle cx="300" cy="104" r="3" fill="#fff0c0"/>`;
+}
+
+function leocorno(){return ""}
+
+/* ============ ROUTER & VIEWS ============ */
+const $=s=>document.querySelector(s);
+const main=$("#main");
+function stripe(c){return `<div class="stripe">${c.col.map(x=>`<i style="background:${x}"></i>`).join("")}</div>`}
+function winsFmt(n){return String(n).replace(".5","½")}
+
+function navTabs(cur){
+  const it=[["#/",t("world")],["#/rivalita",t("rivalry")],["#/stats",t("stats")],["#/oggi",t("today")],["#/quiz",t("quiz")]];
+  return `<nav class="tabs">${it.map(([h,l])=>`<a href="${h}" class="${h===cur?'on':''}">${l}</a>`).join("")}</nav>`;
+}
+
+function home(){
+  let stars="";for(let i=0;i<50;i++)stars+=`<i style="left:${(i*37)%100}%;top:${(i*53)%45}%;animation-delay:${(i%9)*.5}s"></i>`;
+  return `<div class="hero"><div class="stars">${stars}</div>
+   <h1><em>${t("kicker")}</em>${t("title")}</h1>
+   <p class="lead">${t("lead")}</p>
+   <p class="hint">${t("hint")} ↓</p>
+   <div class="ringwrap">${ringSVG()}</div>
+   <div class="cta">
+     <a class="btn" href="#/rivalita">${t("rivalry")}</a>
+     <a class="btn ghost" href="#/oggi">${t("today")}</a>
+     <a class="btn ghost" href="#/stats">${t("stats")}</a>
+     <a class="btn ghost" href="#/quiz">${t("quiz")}</a>
+   </div></div>
+   <div class="wrap" style="padding-top:34px"><div class="eyebrow">${t("world")}</div><h2>17</h2>
+   <div class="tiles">${C.map(c=>`<a class="tile" href="#/c/${c.id}">${stripe(c)}<b>${c.n}</b><small>${winsFmt(c.w[5])} ${t("wins").toLowerCase()}</small></a>`).join("")}</div>
+   <p class="eyebrow" style="margin-top:36px">${t("mapSoon")}</p></div>`;
+}
+
+function rivalLinks(id){
+  return R.filter(r=>r.a===id||r.b===id).map(r=>({r,o:byId[r.a===id?r.b:r.a]}));
+}
+function world(id){
+  const c=byId[id]; if(!c) return home();
+  const rl=rivalLinks(id);
+  const [a,b]=[c.col[0],c.col[1]||c.col[0]];
+  const maxw=Math.max(...c.w.slice(0,5),1);
+  const arc=c.w.slice(0,5).map((v,i)=>{const h=Math.round(v/20*50);return `<g><rect x="${10+i*54}" y="${56-h}" width="40" height="${h}" rx="6" fill="${c.col[i%c.col.length]}" stroke="#fff3" /><text x="${30+i*54}" y="${56-h-4}" text-anchor="middle" font-size="12" fill="#f6ecd7" font-family="sans-serif">${winsFmt(v)}</text><text x="${30+i*54}" y="70" text-anchor="middle" font-size="10" fill="#f6ecd7aa" font-family="sans-serif">${ERA[i]}</text></g>`}).join("");
+  return `<div class="world" style="background:linear-gradient(180deg,${a}33,var(--night) 45%)">
+    ${navTabs("#/")}
+    <div class="top">
+      <svg class="emblem" viewBox="-60 -70 120 150" aria-hidden="true">${emblem(c,99)}</svg>
+      <div class="eyebrow">${t("kicker")}</div>
+      <h2>${c.n}</h2>
+      <div class="stat"><div><b>${winsFmt(c.w[5])}</b>${t("wins")}</div><div><b>${rl.length}</b>${t("rivals")}</div></div>
+      <div style="margin-top:8px">${fonte(c.vit,"vinti.htm › "+c.n)}</div>
+    </div>
+    <div class="wrap">
+      ${WORLD[id]?`<h3>${t("story")}</h3><p>${WORLD[id]}</p>`:`<h3>${t("story")}</h3><p style="opacity:.8">${t("soon")}</p>`}
+      <h3>${t("colors")} ${DV}</h3>
+      ${stripe(c)}
+      <p style="font-size:15px;opacity:.8">${c.col.map(x=>`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${x};border:1px solid #fff4;margin-right:4px"></span>`).join("")}</p>
+      <h3>${t("wins")} · ${t("fonteTot")}${winsFmt(c.w[5])}</h3>
+      <svg viewBox="0 0 280 78" style="max-width:340px" role="img" aria-label="vittorie per secolo">${arc}</svg>
+      <div>${fonte("vinti.htm","vinti.htm")}</div>
+      <h3>${t("rivals")}</h3>
+      <div class="chars">${rl.length?rl.map(({r,o})=>`<a class="char" href="#/rivalita/${r.k}" style="border-top:4px solid ${o.col[0]}">
+        <div class="vs">vs.</div><div style="font-size:22px">${o.n}</div>
+        <small style="font-family:var(--sans);opacity:.75">${r.ep?(t("since")+" "+r.since):t("open")}</small></a>`).join(""):`<p style="opacity:.8">${t("soon")}</p>`}</div>
+      <p style="font-family:var(--sans);font-size:12px;opacity:.7;margin-top:30px">${t("rivalry_in")} · ${fonte("rivali.htm","rivali.htm")}</p>
+    </div></div>`;
+}
+
+function rivalry(key){
+  if(key){const r=R.find(x=>x.k===key); if(r) return rivalStory(r);}
+  const pos={};const cx=300,cy=290,Rr=220;
+  C.forEach((c,i)=>{const a=(i/17)*Math.PI*2-Math.PI/2;pos[c.id]=[cx+Rr*Math.cos(a),cy+Rr*Math.sin(a)]});
+  const edges=R.map(r=>{const [x1,y1]=pos[r.a],[x2,y2]=pos[r.b];const mx=(x1+x2)/2*.75+cx*.25,my=(y1+y2)/2*.75+cy*.25;
+    return `<path class="edge" data-a="${r.a}" data-b="${r.b}" d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" data-go="#/rivalita/${r.k}"><title>${byId[r.a].n} – ${byId[r.b].n}</title></path>`}).join("");
+  const nodes=C.map(c=>{const [x,y]=pos[c.id];const out=x>cx?1:-1;return `<g class="node" data-id="${c.id}" data-go="#/c/${c.id}" transform="translate(${x.toFixed(1)},${y.toFixed(1)})"><circle r="11" fill="${c.col[0]}" stroke="${c.col[1]||'#fff'}" stroke-width="3"/><text x="${out*16}" y="4" text-anchor="${out>0?'start':'end'}">${c.n}</text></g>`}).join("");
+  const cards=R.map(r=>`<a class="char" style="width:auto;flex:1 1 220px;border-left:4px solid ${byId[r.a].col[0]};border-right:4px solid ${byId[r.b].col[0]}" href="#/rivalita/${r.k}"><div class="vs">${r.ep?t("ep")+" · "+r.since:fonte2()}</div><div style="font-size:20px">${byId[r.a].n} <span style="opacity:.5">×</span> ${byId[r.b].n}</div></a>`).join("");
+  return `${navTabs("#/rivalita")}<div class="webwrap" style="padding-top:110px">
+    <div class="wrap"><div class="eyebrow">${t("webTitle")}</div><h2>${t("webTitle")}</h2><p>${t("webSub")}</p></div>
+    <svg viewBox="0 0 600 580" id="web">${edges}${nodes}</svg>
+    <div class="wrap"><div class="chars" style="flex-wrap:wrap;overflow:visible">${cards}</div>
+    <p>${fonte("rivali.htm","rivali.htm")}</p></div></div>`;
+}
+function fonte2(){return lang==="it"?"scheda in archivio":"archive page"}
+
+function rivalStory(r){
+  const A=byId[r.a],B=byId[r.b];
+  const eps=(r.ep||[]).map(e=>`<li><div class="when">${e[0]}</div><h3 style="margin:.1em 0">${e[1]}</h3><div class="ep">${e[2]}</div></li>`).join("");
+  return `${navTabs("#/rivalita")}<div style="padding:110px 0 40px;background:linear-gradient(90deg,${A.col[0]}55,var(--night) 50%,${B.col[0]}55)">
+   <div class="wrap">
+    <div class="eyebrow">${A.n} × ${B.n}</div>
+    <h2><a href="#/c/${A.id}" style="color:inherit;text-decoration:none">${A.n}</a> <span style="opacity:.5">&amp;</span> <a href="#/c/${B.id}" style="color:inherit;text-decoration:none">${B.n}</a></h2>
+    ${r.t?`<p class="eyebrow" style="color:var(--ember)">${r.t.join(" · ")}</p>`:""}
+    ${r.intro?`<p style="font-size:20px">${r.intro}</p>`:`<p style="opacity:.8">${t("no")}</p>`}
+    ${eps?`<h3>${t("storyHere")}</h3><ul class="episodes">${eps}</ul>`:""}
+    <p>${fonte(r.file,r.file)} · <span class="fonte">Testo originale: R. Filiani, N. Zaffaroni, <i>Con la rivale in Campo</i></span></p>
+    <p><a class="btn ghost" href="#/rivalita">← ${t("back")}</a></p>
+   </div></div>`;
+}
+
+function stats(){
+  return `${navTabs("#/stats")}<div class="light" style="min-height:100vh;padding:110px 0 40px"><div class="wrap">
+   <div class="eyebrow">${t("stats")}</div><h2>${t("stats")}</h2><p>${t("statsSub")}</p>
+   <div class="chips" id="era"></div><div class="chips" id="sort"></div>
+   <div class="bars" id="bars"></div>
+   <p>${fonte("vinti.htm","vinti.htm — totali per secolo")} · <span style="font-size:13px">I conteggi del Seicento si riferiscono a vittorie accertate; ½ = Palio assegnato a metà.</span></p>
+   <div class="card" id="pop" hidden></div></div></div>`;
+}
+let S={era:5,sort:"w"};
+function drawBars(){
+  const rows=C.map(c=>({c,v:c.w[S.era]})); rows.sort((a,b)=>S.sort==="w"?(b.v-a.v||a.c.n.localeCompare(b.c.n)):a.c.n.localeCompare(b.c.n));
+  const mx=Math.max(...rows.map(r=>r.v),1);
+  $("#bars").innerHTML=rows.map(r=>`<button class="barrow" data-id="${r.c.id}"><span>${r.c.n}</span><span class="tr"><span class="fill" style="width:${r.v/mx*100}%;">${r.c.col.map(x=>`<i style="background:${x}"></i>`).join("")}</span></span><b>${winsFmt(r.v)}</b></button>`).join("");
+  $("#era").innerHTML=[...ERA.map((e,i)=>[i,e]),[5,t("all")]].map(([i,l])=>`<button class="chip ${S.era===i?'on':''}" data-era="${i}">${l}</button>`).join("");
+  $("#sort").innerHTML=[["w",t("byWins")],["a",t("byAZ")]].map(([k,l])=>`<button class="chip ${S.sort===k?'on':''}" data-sort="${k}">${l}</button>`).join("");
+}
+function popFor(id){
+  const c=byId[id],p=$("#pop");p.hidden=false;
+  p.innerHTML=`<div class="eyebrow">${c.n}</div><div style="font-size:42px">${winsFmt(c.w[5])}</div><div>${ERA.map((e,i)=>`${e}: <b>${winsFmt(c.w[i])}</b>`).join(" · ")}</div><p><a class="btn" href="#/c/${id}">${t("open")}</a> ${fonte(c.vit,"vinti.htm")}</p>`;
+  p.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function oggi(){
+  const d=new Date(),doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
+  const s=OGGI[doy%OGGI.length];
+  const date=d.toLocaleDateString(lang==="it"?"it-IT":"en-GB",{weekday:"long",day:"numeric",month:"long"});
+  return `${navTabs("#/oggi")}<div style="min-height:100vh;padding:120px 0 40px;background:radial-gradient(circle at 50% 0,#6b3a5a,var(--night) 60%)"><div class="wrap">
+   <div class="eyebrow">${t("today")} · ${date}</div>
+   <div class="card" style="margin-top:14px"><h2 style="margin-top:0">${s.h}</h2><p style="font-size:20px">${s.b}</p>
+   <p>${s.r?`<a class="btn" href="#/rivalita/${s.r}">${t("open")}</a> ${fonte("rivali_"+s.r+".htm","rivali_"+s.r+".htm")}`:fonte(s.f,s.f)}</p></div>
+   <p style="opacity:.75;margin-top:18px">${t("todayLead")}</p></div></div>`;
+}
+
+let qs={i:0,score:{}};
+function quiz(){
+  return `${navTabs("#/quiz")}<div style="min-height:100vh;padding:120px 0 40px;background:radial-gradient(circle at 50% 0,#3a2a6a,var(--night) 60%)"><div class="wrap quiz" id="qbox"></div></div>`;
+}
+function drawQuiz(){
+  const box=$("#qbox"); if(!box)return;
+  if(qs.i===-1){ box.innerHTML=`<div class="card"><h2>${t("quiz")}</h2><p>${t("quizNote")}</p><button class="btn" id="qgo">${t("quizStart")}</button></div>`;$("#qgo").onclick=()=>{qs={i:0,score:{}};drawQuiz()};return;}
+  if(qs.i>=Q.length){
+    const best=Object.entries(qs.score).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0][0];const c=byId[best];
+    box.innerHTML=`<div class="card" style="text-align:center"><div class="eyebrow">${t("you")}</div><svg viewBox="-60 -70 120 150" style="width:150px;margin:0 auto">${emblem(c,77)}</svg><h2>${c.n}</h2>
+      ${WORLD[best]?`<p>${WORLD[best]}</p>`:""}<p><a class="btn" href="#/c/${best}">${t("open")}</a> <button class="btn ghost" id="qag" style="color:var(--ink);border-color:#0004">${t("quizAgain")}</button></p><p style="font-size:13px;opacity:.7">${t("quizNote")}</p></div>`;
+    $("#qag").onclick=()=>{qs={i:-1,score:{}};drawQuiz()};return;}
+  const q=Q[qs.i];
+  box.innerHTML=`<div class="card"><div class="prog"><i style="width:${qs.i/Q.length*100}%"></i></div><h2 style="margin-top:18px">${q.q}</h2><div class="opts">${q.o.map((o,j)=>`<button data-j="${j}">${o[0]}</button>`).join("")}</div></div>`;
+  box.querySelectorAll("button[data-j]").forEach(b=>b.onclick=()=>{q.o[+b.dataset.j][1].forEach(id=>qs.score[id]=(qs.score[id]||0)+1);qs.i++;drawQuiz()});
+}
+
+function render(){
+  const h=location.hash||"#/";const p=h.split("/");
+  let html,after;
+  if(p[1]==="c") html=world(p[2]);
+  else if(p[1]==="rivalita") html=rivalry(p[2]);
+  else if(p[1]==="stats"){html=stats();after=()=>{drawBars()};}
+  else if(p[1]==="oggi") html=oggi();
+  else if(p[1]==="quiz"){html=quiz();qs={i:-1,score:{}};after=drawQuiz;}
+  else html=home();
+  main.innerHTML=`<section class="page on">${html}</section>`;
+  window.scrollTo(0,0);
+  if(after)after();
+  $("#f1").textContent=t("footer");
+  document.title=t("title");
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]");
+  if(g){const h=g.getAttribute("data-go");if(location.hash===h)render();else location.hash=h;return;}
+  const era=e.target.closest("[data-era]");if(era){S.era=+era.dataset.era;drawBars();return;}
+  const so=e.target.closest("[data-sort]");if(so){S.sort=so.dataset.sort;drawBars();return;}
+  const br=e.target.closest(".barrow");if(br){popFor(br.dataset.id);}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){const g=e.target.closest&&e.target.closest("[data-go]");if(g)g.dispatchEvent(new MouseEvent("click",{bubbles:true}))}});
+window.addEventListener("hashchange",render);
+function setLang(l){lang=l;try{localStorage.setItem("lang",l)}catch(e){}document.documentElement.lang=l;$("#bIt").classList.toggle("on",l==="it");$("#bEn").classList.toggle("on",l==="en");render();}
+$("#bIt").onclick=()=>setLang("it");$("#bEn").onclick=()=>setLang("en");
+setLang(lang);
+</script>
+</body>
+</html>
