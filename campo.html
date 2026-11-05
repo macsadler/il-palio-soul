@@ -145,6 +145,7 @@ nav.tabs a.on{background:var(--gold);color:#2a1a14;border-color:var(--gold)}
   <div style="margin-top:8px;opacity:.75">Nessuna pubblicità, nessun tracciamento. · No ads, no tracking.</div>
 </footer>
 
+<script src="assets/palio-meta.js"></script>
 <script>
 "use strict";
 /* ============ DATA ============ */
@@ -172,6 +173,8 @@ const C=[
  {id:"torre",n:"Torre",w:[3,12,20,5,2,42],col:["#c0302c","#f6ecd7","#2a5db0"],em:"torre",vit:"vittoriecontradetorre.htm"},
  {id:"valdimontone",n:"Valdimontone",w:[1,16,10,15,2,44],col:["#f6ecd7","#c0302c","#f2c230"],em:"montone",vit:"vittoriecontradevaldimontone.htm"},
 ];
+/* colours: from the archive's arms page (araldica.htm) via palio-meta.js when available */
+if(window.PALIO_META)C.forEach(c=>{const m=PALIO_META.c[c.id];if(m)c.col=m.c.filter((x,i,a)=>a.indexOf(x)===i)});
 const byId=Object.fromEntries(C.map(c=>[c.id,c]));
 const ERA=["1600","1700","1800","1900","2000"];
 
@@ -408,9 +411,9 @@ function world(id){
     </div>
     <div class="wrap">
       ${WORLD[id]?`<h3>${t("story")}</h3><p>${WORLD[id]}</p>`:`<h3>${t("story")}</h3><p style="opacity:.8">${t("soon")}</p>`}
-      <h3>${t("colors")} ${DV}</h3>
+      <h3>${t("colors")}</h3>
       ${stripe(c)}
-      <p style="font-size:15px;opacity:.8">${c.col.map(x=>`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${x};border:1px solid #fff4;margin-right:4px"></span>`).join("")}</p>
+      <p style="font-size:15px;opacity:.8">${window.PALIO_META&&PALIO_META.c[c.id]?"«"+PALIO_META.c[c.id].w+"» "+fonte("araldica.htm","araldica.htm")+" ":""}${c.col.map(x=>`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${x};border:1px solid #fff4;margin-right:4px"></span>`).join("")}</p>
       <h3>${t("wins")} · ${t("fonteTot")}${winsFmt(c.w[5])}</h3>
       <svg viewBox="0 0 280 78" style="max-width:340px" role="img" aria-label="vittorie per secolo">${arc}</svg>
       <div>${fonte("vinti.htm","vinti.htm")}</div>

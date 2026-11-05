@@ -267,6 +267,7 @@
 
   function run() {
     css(); nav();
+    var tg = document.getElementById('lang-toggle'); if (tg) tg.addEventListener('click', function () { setTimeout(function () { location.reload(); }, 60); });
     load('assets/palio-meta.js', function () {
       M = window.PALIO_META;
       load('assets/palio-data.js', function () {
@@ -277,7 +278,7 @@
           else if (p.dir === 'jockeys' && p.file !== 'index') jockeyPage(p.file);
           else if (p.dir === 'horses' && p.file !== 'index') horsePage(p.file);
           else if (p.dir === 'races' && p.file !== 'index') racePage(p.file);
-          else if (document.body.classList.contains('is-home')) homeRing();
+          else if (document.body.classList.contains('is-home') || (p.dir === 'contrade' && p.file === 'index')) homeRing();
           else if (p.file === 'timeline') timelinePage();
           else if (p.file === 'compare') comparePage();
         } catch (e) { if (window.console) console.warn('wonder', e); }

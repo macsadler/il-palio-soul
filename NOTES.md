@@ -36,7 +36,7 @@ Rebuild order: import, then build_data, then inject_wonder.
 - Quotes are short and credited, each with a Fonte link to its archive page.
 
 ## Da verificare
-- `campo.html` uses its own contrada colours (marked "da verificare" on the page). The real pages use the archive's arms page (araldica.htm) colours via `palio-meta.js`. To do: switch campo.html to the archive colours.
+- `campo.html` now takes contrada colours from the archive arms page (araldica.htm, via palio-meta.js), quoted with Fonte.
 - Emblem drawings in campo.html are free stylisations, not official heraldry.
 - Fastest times in campo.html: parsed from tempi.htm; asterisks on some times were dropped, meaning unknown.
 - No city facts (streets, churches, fountains, museums, terzi) have been added yet: none to verify.
