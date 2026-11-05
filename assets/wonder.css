@@ -89,3 +89,8 @@
 .w-heroes b{display:block;font-family:var(--serif,Georgia);font-size:30px;font-weight:400;color:var(--w-gold);line-height:1}
 .w-heroes span{font-family:var(--sans,system-ui);font-size:12.5px}
 .w-heroes i{position:absolute;top:6px;right:8px;font-style:normal;color:var(--w-gold)}
+.w-serials{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.w-serial{background:#fff;border-radius:18px;padding:16px;border-top:6px solid transparent;border-image:linear-gradient(90deg,var(--a) 50%,var(--b) 50%) 1;box-shadow:0 8px 24px #2b232012}
+.w-serial h3{font-size:24px;margin:.2em 0 .3em}
+.w-serial h3 span{color:var(--w-red)}
+.w-serial p{font-size:15.5px}

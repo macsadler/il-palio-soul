@@ -317,6 +317,21 @@
     };
   }
 
+
+  /* ---------- rivalries page: the serials, as doors ---------- */
+  function rivalriesPage() {
+    var main = $('#main'); if (!main) return;
+    var it = lang === 'it';
+    var h = '<div class="w-serials">' + M.rel.map(function (r) {
+      var a = col(r.a), b = col(r.b), st = STORIES[r.id];
+      return '<div class="w-serial" style="--a:' + a[0] + ';--b:' + b[0] + '"><div class="w-eyebrow">' + esc(r.s) + '</div><h3>' + esc(cname(r.a)) + ' <span>×</span> ' + esc(cname(r.b)) + '</h3>' +
+        '<p>«' + esc(r.why.length > 160 ? r.why.slice(0, 157).replace(/\s+\S*$/, '') + '…' : r.why) + '»</p>' + fonte(r.u) +
+        '<p>' + (st ? '<a class="w-btn" href="' + root + 'campo.html#/rivalita/' + st + '">' + T.story + ' →</a> ' : '') + '<a class="w-btn ghost" href="' + root + 'compare.html#' + r.a + '-' + r.b + '">' + T.compare + '</a></p></div>';
+    }).join('') + '</div><p class="w-small">' + (it ? 'Gli episodi sono parafrasi delle pagine dell’archivio (dal libro «Con la rivale in Campo» di R. Filiani e N. Zaffaroni), con brevi citazioni.' : 'Episodes paraphrase the archive pages (from «Con la rivale in Campo» by R. Filiani and N. Zaffaroni), with short quotes. Stories are in Italian.') + '</p>';
+    var s = sec(it ? 'Tredici storie, a puntate' : 'Thirteen stories, in episodes', h, T.friends);
+    main.appendChild(s);
+  }
+
   function run() {
     css(); nav();
     var tg = document.getElementById('lang-toggle'); if (tg) tg.addEventListener('click', function () { setTimeout(function () { location.reload(); }, 60); });
@@ -333,6 +348,7 @@
           else if (document.body.classList.contains('is-home') || (p.dir === 'contrade' && p.file === 'index')) homeRing();
           else if (p.file === 'timeline') timelinePage();
           else if (p.file === 'compare') comparePage();
+          else if (p.file === 'rivalries') rivalriesPage();
           else if (p.dir === 'stats' && p.file === 'index') statsPage();
         } catch (e) { if (window.console) console.warn('wonder', e); }
       });
