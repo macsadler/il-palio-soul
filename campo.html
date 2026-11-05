@@ -133,7 +133,7 @@ nav.tabs a.on{background:var(--gold);color:#2a1a14;border-color:var(--gold)}
 </head>
 <body>
 <header class="bar">
-  <button class="logo" data-go="#/">Anima del Palio</button>
+  <a class="logo" href="index.html">← Archivio del Palio</a><button class="logo" data-go="#/" style="margin-left:10px">Il Campo</button>
   <div class="tools">
     <button id="bIt" class="on">IT</button><button id="bEn">EN</button>
   </div>
@@ -380,6 +380,7 @@ function home(){
      <a class="btn ghost" href="#/oggi">${t("today")}</a>
      <a class="btn ghost" href="#/stats">${t("stats")}</a>
      <a class="btn ghost" href="#/quiz">${t("quiz")}</a>
+     <a class="btn ghost" href="index.html">${lang==="it"?"Tutto l'archivio":"The whole archive"}</a>
    </div></div>
    <div class="wrap" style="padding-top:34px"><div class="eyebrow">${t("world")}</div><h2>17</h2>
    <div class="tiles">${C.map(c=>`<a class="tile" href="#/c/${c.id}">${stripe(c)}<b>${c.n}</b><small>${winsFmt(c.w[5])} ${t("wins").toLowerCase()}</small></a>`).join("")}</div>
@@ -403,6 +404,7 @@ function world(id){
       <h2>${c.n}</h2>
       <div class="stat"><div><b>${winsFmt(c.w[5])}</b>${t("wins")}</div><div><b>${rl.length}</b>${t("rivals")}</div></div>
       <div style="margin-top:8px">${fonte(c.vit,"vinti.htm › "+c.n)}</div>
+      <p style="margin-top:16px"><a class="btn" href="contrade/${c.id}.html">${lang==="it"?"Scheda completa: vittorie, fantini, cavalli →":"Full record: wins, jockeys, horses →"}</a> <a class="btn ghost" href="compare.html#${c.id}-${(rl[0]&&rl[0].o.id)||"oca"}">${lang==="it"?"Confronta":"Compare"}</a></p>
     </div>
     <div class="wrap">
       ${WORLD[id]?`<h3>${t("story")}</h3><p>${WORLD[id]}</p>`:`<h3>${t("story")}</h3><p style="opacity:.8">${t("soon")}</p>`}
@@ -447,7 +449,7 @@ function rivalStory(r){
     ${r.intro?`<p style="font-size:20px">${r.intro}</p>`:`<p style="opacity:.8">${t("no")}</p>`}
     ${eps?`<h3>${t("storyHere")}</h3><ul class="episodes">${eps}</ul>`:""}
     <p>${fonte(r.file,r.file)} · <span class="fonte">Testo originale: R. Filiani, N. Zaffaroni, <i>Con la rivale in Campo</i></span></p>
-    <p><a class="btn ghost" href="#/rivalita">← ${t("back")}</a></p>
+    <p><a class="btn ghost" href="#/rivalita">← ${t("back")}</a> <a class="btn" href="compare.html#${A.id}-${B.id}">${A.n} × ${B.n}: ${lang==="it"?"il confronto":"compare"} →</a> <a class="btn ghost" href="rivalries.html">${lang==="it"?"Amiche e rivali":"Friends & rivals"}</a></p>
    </div></div>`;
 }
 

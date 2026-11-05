@@ -170,7 +170,19 @@
     var st = jockeyStats(j); if (!st.runs) return;
     var cs = Object.keys(st.cs).sort(function (a, b) { return st.cs[b] - st.cs[a]; });
     var h = '<div class="w-stats"><div><b>' + st.runs + '</b>' + T.runs + '</div><div><b>' + st.wins + '</b>' + T.won + '</div></div>' + arcSVG(st.years) +
-      '<h3>' + T.rode + '</h3><div class="w-field">' + cs.map(function (c) { return chip(c, ' · ' + st.cs[c]); }).join('') + '</div><p class="w-small">' + T.derived + '</p>';
+      '<h3>' + T.rode + '</h3><div class="w-field">' + cs.map(function (c) { return chip(c, ' · ' + st.cs[c]); }).join('') + '</div>';
+    var wins = [], beat = {}, beatBy = {};
+    D.r.forEach(function (r) {
+      var me = r[7].filter(function (p) { return p[1] === j; })[0]; if (!me) return;
+      var w = r[7].filter(function (p) { return p[3]; })[0];
+      if (me[3]) { wins.push([r, me]); r[7].forEach(function (p) { if (p[1] && p[1] !== j) beat[p[1]] = (beat[p[1]] || 0) + 1; }); }
+      else if (w && w[1]) beatBy[w[1]] = (beatBy[w[1]] || 0) + 1;
+    });
+    if (wins.length) h += '<h3>' + (lang === 'it' ? 'Le sue vittorie' : 'Victories') + '</h3><div class="w-runs">' + wins.map(function (x) { var r = x[0], p = x[1]; return '<a class="w-run win" href="' + rlink(r) + '" style="--a:' + col(p[0])[0] + '"><span>' + esc(rlabel(r)) + '</span><b>' + esc(cname(p[0])) + '</b>' + (p[2] ? '<small>' + esc(D.h[p[2]]) + '</small>' : '') + '</a>'; }).join('') + '</div>';
+    function top(o) { return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; }).slice(0, 8).map(function (x) { return '<a class="w-pill" style="--a:var(--w-gold)" href="' + root + 'jockeys/' + x + '.html">' + esc(D.j[x]) + ' · ' + o[x] + '</a>'; }).join(''); }
+    if (Object.keys(beat).length) h += '<h3>' + (lang === 'it' ? 'Chi ha lasciato dietro di sé, più spesso' : 'Whom it left behind most often') + '</h3><div class="w-field">' + top(beat) + '</div>';
+    if (Object.keys(beatBy).length) h += '<h3>' + (lang === 'it' ? 'Chi ha vinto i Palii in cui ha corso' : 'Who won the Palii it ran in') + '</h3><div class="w-field">' + top(beatBy) + '</div>';
+    h += '<p class="w-small">' + T.derived + (lang === 'it' ? '. «Lasciato dietro»: fantini presenti nei Palii che ha vinto.' : '. "Left behind": jockeys in the Palii it won.') + '</p>';
     var s = sec(T.arc, h, esc(D.j[j])); var ref = main.querySelector('h1'); ref.parentNode.insertBefore(s, ref.nextElementSibling ? ref.nextElementSibling.nextSibling : null);
   }
   /* ---------- horse page ---------- */
