@@ -43,7 +43,7 @@ Rebuild order: import, then build_data, then inject_wonder.
 
 ## Not done yet / next
 - Image-only archive types are not rebuilt locally (they link to originals).
-- Horse genealogies (no parsed parent data yet), jockey families.
+- Horse genealogies: the horse pages carry no parentage data, so none are shown. Jockey families: not yet.
 - Terzi map with territories (only with "da verificare").
 - Campo ring on the contrade index; IT/EN for the heart layer is applied at page load (toggle, then reload, to switch it).
 - Episodes written for all 13 rivalry pages (paraphrase + short quotes, Fonte on each).

@@ -27,3 +27,13 @@ c=t[:a]+main+t[b+7:]
 c=re.sub(r'<title>[^<]*</title>','<title>Confronta · Archivio del Palio di Siena</title>',c)
 c=c.replace(' aria-current="page"','')
 open(R+'/compare.html','w',encoding='utf-8').write(c); print('compare.html')
+# search: add the heart-layer pages and the 13 rivalry serials
+import json
+p=R+'/assets/search-index.js'; s=open(p,encoding='utf-8').read()
+d=json.loads(s[s.find('['):s.rfind(']')+1]); d=[x for x in d if x.get('k')!='Anima']
+c=open(R+'/campo.html',encoding='utf-8').read()
+add=[{'t':'Il Campo al tramonto','u':'campo.html','k':'Anima','n':'campo piazza tramonto bandiere contrade quiz oggi nel palio','w':3},
+     {'t':'Contrada contro Contrada (confronta)','u':'compare.html','k':'Anima','n':'confronta compare contrada contro contrada testa a testa','w':3}]
+for m in re.finditer(r'\{k:"(\w+)",a:"(\w+)",b:"(\w+)",since:"[^"]*",\s*t:\["([^"]+)"',c):
+    add.append({'t':'%s × %s — %s'%(m[2].title(),m[3].title(),m[4]),'u':'campo.html#/rivalita/'+m[1],'k':'Anima','n':('%s %s rivalità racconto %s'%(m[2],m[3],m[4])).lower(),'w':2})
+open(p,'w',encoding='utf-8').write('window.PALIO_INDEX='+json.dumps(add+d,ensure_ascii=False,separators=(',',':'))+';\n'); print('search +',len(add))
