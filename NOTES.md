@@ -9,12 +9,12 @@ No ads, no tracking, no commercial links. No hotlinked images: `<img>`/`<image>`
 ## Structure
 | Path | What it is | Source |
 |---|---|---|
-| `index.html` | Home: search, last Palio, today in history, countdown, 17 shields, "numeri che raccontano" + **Campo-at-dusk ring** (heart layer) linking to the 17 contrada pages | prototype + `assets/wonder.js` |
+| `index.html` | Home: search, last Palio, today in history, countdown, 17 shields, "numeri che raccontano" + **Campo-at-dusk ring** linking to the 17 contrada pages + **La porta di oggi** (one archive sentence per day) | prototype + `assets/wonder.js` |
 | `timeline.html` | All Palii from vittorie.htm, filters + **decade scrubber with colour spark** | prototype + heart layer |
-| `contrade/*.html` (17) | Contrada pages + **Il filo della storia** (scrubbable victory thread, longest wait), **Amiche e rivali** (quotes + Fonte), **Testa a testa** | prototype + heart layer |
-| `jockeys/*.html` (~595) | Jockey profiles + **career arc**, contrade ridden, victories, who it left behind / who won when it ran | prototype + heart layer |
+| `contrade/*.html` (17) | Contrada pages + **Il filo della storia** (scrubbable victory thread, longest wait), **Chi l'ha fatta vincere** (winning jockeys and horses), **Amiche e rivali** (quotes + Fonte, links to the serial), **Testa a testa** (links to compare) | prototype + heart layer |
+| `jockeys/*.html` (~595) | Jockey profiles + **career arc**, debut and last race, contrade ridden, victories, who it left behind / who won when it ran | prototype + heart layer |
 | `horses/*.html` (~1290) | Horse profiles + **race cards** and jockeys | prototype + heart layer |
-| `races/*.html` (~757) | Race pages + **starting gate**, **same day in other years**, prev/next | prototype + heart layer |
+| `races/*.html` (~757) | Race pages + **la fine di un'attesa** (years since the winner's previous win), **starting gate**, **same day in other years**, prev/next | prototype + heart layer |
 | `stats/`, `rivalries.html` | Statistics, times, "Amiche e rivali" map + **La corsa dei secoli** (drag or play the years), **Le grandi attese** (longest waits), **Chi aspetta oggi** (years since last win); all derivato | prototype + heart layer |
 | `compare.html` | **New**: contrada vs contrada (two timelines, head to head, waits, rivalry/alliance quotes) | heart layer |
 | `campo.html` | **New**: the Campo experience (flag ring, contrada worlds, serialized rivalry stories, Oggi nel Palio, quiz, wins by century, fastest times); links to the real pages | own text paraphrasing rivali_*.htm; vinti.htm; tempi.htm |
@@ -24,13 +24,14 @@ No ads, no tracking, no commercial links. No hotlinked images: `<img>`/`<image>`
 - `tools/import_prototype.py /path/to/pretty`: imports the prototype, strips image hotlinks, rewrites heavy types to originals.
 - `tools/build_data.py`: builds `assets/palio-data.js` (757 races with entry lists, jockey and horse names) from `races/*.html`, and `assets/palio-meta.js` (flag colours and words, rivalries, alliances) from `rivalries.html`.
 - `tools/inject_wonder.py`: adds `assets/wonder.js` to every page; regenerates `compare.html`.
-- `tools/linkcheck.py`: checks local links (0 broken after import, apart from 2 JS template false positives in campo.html).
+- `tools/linkcheck.py`: checks local links (0 real broken links; 3 hits are JS template strings in campo.html).
+- Every page also has the floating **✦ Meraviglia** button (random race, rivalry, alliance quote or jockey) and the nav links **Il Campo** and **Confronta**. Search also finds the Campo, the comparison page and the 13 serials.
 Rebuild order: import, then build_data, then inject_wonder.
 
 ## Truth rules as applied
 - Official win totals come **only from vinti.htm** (on the contrada pages, home and stats; Oca 65, Chiocciola 49, Tartuca 47½…).
 - Heart-layer counts ("vittorie nelle schede", waits, head to head, career arcs) are **derivato** from the race pages and labelled so.
-  After merging 31 duplicate race pages (postponed races with two pages), most match vinti.htm; any difference stays labelled.
+  After merging 31 duplicate race pages (postponed races with two pages), 12 contrade match vinti.htm exactly. Differences (race records vs vinti.htm): Chiocciola 48/49, Civetta 34/33, Lupa 39/38, Onda 46/45½, Tartuca 47/47½ (the halves are a shared Palio). Every heart-layer count says "derivato".
 - "Attesa più lunga" is computed only between wins present in the race records; gaps in early centuries may come from missing records.
 - Rivalry status ("in essere / estinta / sporadica") is as stated on rivali.htm, written in 2001–2002, not checked against today.
 - Quotes are short and credited, each with a Fonte link to its archive page.
@@ -42,8 +43,9 @@ Rebuild order: import, then build_data, then inject_wonder.
 - No city facts (streets, churches, fountains, museums, terzi) have been added yet: none to verify.
 
 ## Not done yet / next
-- Image-only archive types are not rebuilt locally (they link to originals).
-- Horse genealogies: the horse pages carry no parentage data, so none are shown. Jockey families: not yet.
-- Terzi map with territories (only with "da verificare").
-- Campo ring on the contrade index; IT/EN for the heart layer is applied at page load (toggle, then reload, to switch it).
-- Episodes written for all 13 rivalry pages (paraphrase + short quotes, Fonte on each).
+- Image-only archive types are not rebuilt locally; they link to their originals on ilpalio.org.
+- Horse genealogies: the horse pages carry no parentage data, so none are shown. Jockey families: no structured data yet.
+- Terzi map, territories, streets, churches, fountains, museums: not built (would need "da verificare" on every item).
+- Heart-layer IT/EN: the toggle reloads the page so the new language applies.
+- campo.html stories are Italian only (the interface is IT/EN).
+- Ideas: bring the 13 serials directly into rivalries.html (not only links); "accadde oggi" on contrada pages; jockey rivalries (pairs that met most often).
