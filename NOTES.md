@@ -12,7 +12,7 @@ No ads, no tracking, no commercial links. No hotlinked images: `<img>`/`<image>`
 | `index.html` | Home: search, last Palio, today in history, countdown, 17 shields, "numeri che raccontano" + **Campo-at-dusk ring** linking to the 17 contrada pages + **La porta di oggi** (one archive sentence per day) | prototype + `assets/wonder.js` |
 | `timeline.html` | All Palii from vittorie.htm, filters + **decade scrubber with colour spark** | prototype + heart layer |
 | `contrade/*.html` (17) | Contrada pages + **Il filo della storia** (scrubbable victory thread, longest wait), **Chi l'ha fatta vincere** (winning jockeys and horses), **Amiche e rivali** (quotes + Fonte, links to the serial), **Testa a testa** (links to compare) | prototype + heart layer |
-| `jockeys/*.html` (~595) | Jockey profiles + **career arc**, debut and last race, contrade ridden, victories, who it left behind / who won when it ran | prototype + heart layer |
+| `jockeys/*.html` (~595) | Jockey profiles + **career arc**, debut and last race, contrade ridden, victories, **I duelli** (riders met most often, who won), who it left behind / who won when it ran | prototype + heart layer |
 | `horses/*.html` (~1290) | Horse profiles + **race cards** and jockeys | prototype + heart layer |
 | `races/*.html` (~757) | Race pages + **la fine di un'attesa** (years since the winner's previous win), **starting gate**, **same day in other years**, prev/next | prototype + heart layer |
 | `stats/`, `rivalries.html` | Statistics, times, "Amiche e rivali" map + **La corsa dei secoli** (drag or play the years), **Le grandi attese** (longest waits), **Chi aspetta oggi** (years since last win); all derivato | prototype + heart layer |
@@ -48,4 +48,4 @@ Rebuild order: import, then build_data, then inject_wonder.
 - Terzi map, territories, streets, churches, fountains, museums: not built (would need "da verificare" on every item).
 - Heart-layer IT/EN: the toggle reloads the page so the new language applies.
 - campo.html stories are Italian only (the interface is IT/EN).
-- Ideas: bring the 13 serials directly into rivalries.html (not only links); "accadde oggi" on contrada pages; jockey rivalries (pairs that met most often).
+- Ideas: bring the 13 serials directly into rivalries.html (not only links); "accadde oggi" on contrada pages.

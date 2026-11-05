@@ -193,6 +193,19 @@
     });
     if (wins.length) h += '<h3>' + (lang === 'it' ? 'Le sue vittorie' : 'Victories') + '</h3><div class="w-runs">' + wins.map(function (x) { var r = x[0], p = x[1]; return '<a class="w-run win" href="' + rlink(r) + '" style="--a:' + col(p[0])[0] + '"><span>' + esc(rlabel(r)) + '</span><b>' + esc(cname(p[0])) + '</b>' + (p[2] ? '<small>' + esc(D.h[p[2]]) + '</small>' : '') + '</a>'; }).join('') + '</div>';
     function top(o) { return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; }).slice(0, 8).map(function (x) { return '<a class="w-pill" style="--a:var(--w-gold)" href="' + root + 'jockeys/' + x + '.html">' + esc(D.j[x]) + ' · ' + o[x] + '</a>'; }).join(''); }
+    // duels: the riders met most often in the same Palio, and who of the two won
+    var du = {};
+    D.r.forEach(function (r) {
+      if (!r[7].some(function (p) { return p[1] === j; })) return;
+      var w = (r[7].filter(function (p) { return p[3]; })[0] || [])[1];
+      r[7].forEach(function (p) { if (!p[1] || p[1] === j) return; var e = du[p[1]] = du[p[1]] || { n: 0, a: 0, b: 0 }; e.n++; if (w === j) e.a++; if (w === p[1]) e.b++; });
+    });
+    var dk = Object.keys(du).sort(function (a, b) { return du[b].n - du[a].n; }).slice(0, 10);
+    var gmx = Math.max.apply(null, [1].concat(dk.map(function (x) { return Math.max(du[x].a, du[x].b); })));
+    if (dk.length) h += '<h3>' + (lang === 'it' ? 'I duelli' : 'The duels') + '</h3><p class="w-small">' + (lang === 'it' ? 'I fantini incontrati più spesso fra i canapi: Palii insieme, e chi dei due li ha vinti.' : 'The riders met most often at the start: Palii together, and which of the two won them.') + '</p><div class="w-h2h">' + dk.map(function (x) {
+      var e = du[x], mx = gmx;
+      return '<a href="' + root + 'jockeys/' + x + '.html"><span class="l" style="width:' + (e.a / mx * 50) + '%;background:var(--w-gold)"></span><span class="nm">' + e.a + ' · ' + esc(D.j[x]) + ' · ' + e.b + ' <small>(' + e.n + ' ' + T.together + ')</small></span><span class="r" style="width:' + (e.b / mx * 50) + '%;background:var(--w-blue)"></span></a>';
+    }).join('') + '</div>';
     if (Object.keys(beat).length) h += '<h3>' + (lang === 'it' ? 'Chi ha lasciato dietro di sé, più spesso' : 'Whom it left behind most often') + '</h3><div class="w-field">' + top(beat) + '</div>';
     if (Object.keys(beatBy).length) h += '<h3>' + (lang === 'it' ? 'Chi ha vinto i Palii in cui ha corso' : 'Who won the Palii it ran in') + '</h3><div class="w-field">' + top(beatBy) + '</div>';
     h += '<p class="w-small">' + T.derived + (lang === 'it' ? '. «Lasciato dietro»: fantini presenti nei Palii che ha vinto.' : '. "Left behind": jockeys in the Palii it won.') + '</p>';
