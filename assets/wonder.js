@@ -179,7 +179,10 @@
     var main = $('#main'); if (!main || !D.j[j]) return;
     var st = jockeyStats(j); if (!st.runs) return;
     var cs = Object.keys(st.cs).sort(function (a, b) { return st.cs[b] - st.cs[a]; });
-    var h = '<div class="w-stats"><div><b>' + st.runs + '</b>' + T.runs + '</div><div><b>' + st.wins + '</b>' + T.won + '</div></div>' + arcSVG(st.years) +
+    var mine = D.r.filter(function (r) { return r[7].some(function (p) { return p[1] === j; }); });
+    var deb = mine[0], fin = mine[mine.length - 1], itj = lang === 'it';
+    var h = '<div class="w-stats"><div><b>' + st.runs + '</b>' + T.runs + '</div><div><b>' + st.wins + '</b>' + T.won + '</div>' +
+      (deb ? '<div><b><a href="' + rlink(deb) + '">' + deb[1] + '</a></b>' + (itj ? 'esordio' : 'debut') + '</div>' : '') + (fin && fin !== deb ? '<div><b><a href="' + rlink(fin) + '">' + fin[1] + '</a></b>' + (itj ? 'ultima corsa' : 'last race') + '</div>' : '') + '</div>' + arcSVG(st.years) +
       '<h3>' + T.rode + '</h3><div class="w-field">' + cs.map(function (c) { return chip(c, ' · ' + st.cs[c]); }).join('') + '</div>';
     var wins = [], beat = {}, beatBy = {};
     D.r.forEach(function (r) {
@@ -209,6 +212,12 @@
   function racePage(id) {
     var main = $('#main'), i = -1; id = (D.a && D.a[id]) || id; D.r.forEach(function (r, k) { if (r[0] === id) i = k; }); if (!main || i < 0) return;
     var r = D.r[i], h = '';
+    if (r[5]) {
+      var prevW = null; for (var q = i - 1; q >= 0; q--) if (D.r[q][5] === r[5]) { prevW = D.r[q]; break; }
+      var it = lang === 'it';
+      if (prevW && r[1] - prevW[1] >= 12) h += '<div class="w-end" style="--a:' + col(r[5])[0] + ';--b:' + (col(r[5])[1] || col(r[5])[0]) + '"><div class="w-eyebrow">' + (it ? 'La fine di un’attesa' : 'The end of a wait') + '</div><b>' + (r[1] - prevW[1]) + '</b><span>' + (it ? 'anni dopo la vittoria del ' : 'years after its win of ') + '<a href="' + rlink(prevW) + '">' + esc(rlabel(prevW)) + '</a></span></div>';
+      else if (!prevW) h += '<div class="w-end"><div class="w-eyebrow">' + (it ? 'La prima vittoria nelle schede' : 'First win in the records') + '</div></div>';
+    }
     if (r[7].length) {
       h += '<div class="w-gate">' + r[7].map(function (p, n) { var k = col(p[0]); return '<a href="' + root + 'contrade/' + p[0] + '.html" class="' + (p[3] ? 'win' : '') + '" style="--a:' + k[0] + ';--b:' + (k[1] || k[0]) + ';animation-delay:' + n * 80 + 'ms"><i></i><span>' + esc(cname(p[0])) + '</span></a>'; }).join('') + '</div>';
     }
