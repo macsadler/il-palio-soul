@@ -114,3 +114,6 @@
 .w-waitnow b{font-family:var(--serif,Georgia);font-size:32px;font-weight:400;color:var(--w-red);line-height:1.1}
 .w-waitnow span{font-family:var(--sans,system-ui);font-size:12px}
 .w-waitnow small{font-family:var(--sans,system-ui);font-size:10.5px;opacity:.6}
+.w-anniv{margin-top:14px;padding:14px 16px;border-radius:16px;background:#fff;border-left:5px solid var(--w-a,var(--w-gold))}
+.w-anniv b{display:block;font-family:var(--serif,Georgia);font-size:30px;font-weight:400;color:var(--w-red)}
+.w-anniv span{font-family:var(--sans,system-ui);font-size:13px;color:#5a4a3c}

@@ -136,6 +136,15 @@
       '<label class="w-small">' + T.scrub + ' <input type="range" id="w-yr" min="' + first + '" max="' + last + '" value="' + (wt.last ? wt.last[1] : 1900) + '"></label><div id="w-yrout" class="w-yrout"></div></div>' +
       '<div class="w-stats"><div><b>' + ws.length + '</b>' + T.wins + '</div>' + (wt.best ? '<div><b>' + wt.best.g + '</b>' + T.wait + ' · ' + wt.best.a[1] + '–' + wt.best.b[1] + '</div>' : '') + (wt.last ? '<div><b>' + wt.last[1] + '</b>' + T.now + '</div>' : '') + '</div>' +
       '<p class="w-small">' + T.derived + '. ' + (lang === 'it' ? 'Il totale ufficiale delle vittorie è quello di vinti.htm, in alto.' : 'The official win total is the vinti.htm one, above.') + '</p>';
+    // the next anniversary: the next day of the year on which this contrada has won (race records)
+    var byDay = {}; ws.forEach(function (r) { if (r[2] && r[3]) { var kd = r[2] * 100 + r[3]; (byDay[kd] = byDay[kd] || []).push(r); } });
+    var td = new Date(), tk = (td.getMonth() + 1) * 100 + td.getDate(), dk2 = Object.keys(byDay).map(Number).sort(function (a, b) { return a - b; });
+    var nk = dk2.filter(function (x) { return x >= tk; })[0] || dk2[0];
+    if (nk) {
+      var nd = new Date(td.getFullYear() + (nk < tk ? 1 : 0), Math.floor(nk / 100) - 1, nk % 100), days = Math.round((nd - new Date(td.getFullYear(), td.getMonth(), td.getDate())) / 864e5), lst = byDay[nk];
+      var itx = lang === 'it';
+      inner += '<div class="w-anniv"><div class="w-eyebrow">' + (itx ? 'Il prossimo anniversario' : 'The next anniversary') + '</div><b>' + (nk % 100) + ' ' + MESI[Math.floor(nk / 100)] + '</b><span>' + (days === 0 ? (itx ? 'oggi' : 'today') : (itx ? 'fra ' + days + ' giorni' : 'in ' + days + ' days')) + ' · ' + lst.length + ' ' + (itx ? (lst.length > 1 ? 'vittorie in questa data' : 'vittoria in questa data') : (lst.length > 1 ? 'wins on this date' : 'win on this date')) + '</span><div class="w-field">' + lst.slice().reverse().map(function (r) { return '<a class="w-pill" style="--a:' + k[0] + '" href="' + rlink(r) + '">' + r[1] + '</a>'; }).join('') + '</div></div>';
+    }
     var s1 = sec(T.thread, inner, esc(cname(c)));
     var hh1 = main.querySelector('h1'), h1card = (hh1 && hh1.closest('.contrada-head, .card')) || hh1 || main.firstElementChild; if (h1card === main) h1card = hh1; h1card.parentNode.insertBefore(s1, h1card.nextSibling);
     var inp = $('#w-yr', s1), out = $('#w-yrout', s1), cur = $('#w-cur', s1);
