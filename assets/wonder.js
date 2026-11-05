@@ -24,7 +24,7 @@
       story: 'Serialized story', jump: 'Jump to year', rivalry: 'rivalry', alliance: 'alliance', status: 'status as in the 2001–2002 texts' }
   }[lang];
   var MESI = ['', 'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
-  var STORIES = { 'r-aqupan': 'aqupan', 'r-chitar': 'chitar', 'r-civleo': 'civleo', 'r-istlup': 'istlup', 'r-nicmon': 'nicmon' };
+  var STORIES = { 'r-aqupan': 'aqupan', 'r-chitar': 'chitar', 'r-civleo': 'civleo', 'r-istlup': 'istlup', 'r-nicmon': 'nicmon', 'r-ocator': 'ocator', 'r-ondtor': 'ondtor' };
   function $(s, c) { return (c || document).querySelector(s); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
   function load(src, cb) { var s = document.createElement('script'); s.src = root + src; s.onload = cb; document.head.appendChild(s); }

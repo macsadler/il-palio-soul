@@ -212,8 +212,26 @@ const R=[
    ["1786","L'ariete che dava vino","Per l'inaugurazione di Palazzo Bianchi, il Cavalier Bianchi, maggiorente del Montone, fa costruire un ariete di legno da cui sgorga vino. I nicchiaioli bevono e sbandierano insieme ai montonaioli."],
    ["Luglio 1791","Cinque anni dopo","Il Nicchio vince con il fantino Ciocio nonostante l'ostacolo di Annibale nel Montone, che rientra in pista per fermarlo. Gli organizzatori annunciano che il Montone pagherebbe il Palio al Nicchio, se fosse riuscito a impedirne la vittoria."]]},
  {k:"brugir",a:"bruco",b:"giraffa"},{k:"brunic",a:"bruco",b:"nicchio"},{k:"dralup",a:"drago",b:"lupa"},
- {k:"nicoca",a:"nicchio",b:"oca"},{k:"nictor",a:"nicchio",b:"torre"},{k:"ocator",a:"oca",b:"torre"},
- {k:"ondtor",a:"onda",b:"torre"},{k:"pansel",a:"pantera",b:"selva"},
+ {k:"nicoca",a:"nicchio",b:"oca"},{k:"nictor",a:"nicchio",b:"torre"},
+ {k:"ocator",a:"oca",b:"torre",since:"sec. XVII",
+  t:["L'unica tra contrade non confinanti"],
+  intro:"Forse l'inimicizia più sentita di Siena, e di sicuro la più anomala: è l'unica fra due contrade che non si toccano. Le sue origini, dice l'archivio, sono confuse e scarne, tramandate quasi solo a voce.",
+  ep:[["Le origini","Salumi e pescheria","Un'ipotesi: interessi economici. Nella Torre si producevano ottimi salumi, e anche in Fontebranda; e c'era la naturale contrapposizione fra i macelli di Fontebranda e la pescheria in Salicotto."],
+   ["26 luglio 1671","La rissa per il baldacchino","Per l'insediamento dell'Arcivescovo Clelio Piccolomini, una grande processione termina al Duomo. All'ingresso, Oca e Torre si affrontano a bastonate per aggiudicarsi il prezioso baldacchino."],
+   ["2 luglio 1694","All'ultimo sangue","Le due contrade lottano per la vittoria. La spunta l'Oca con Pelliccino, tra frustate, colpi proibiti e tumulti nel dopo corsa."],
+   ["Luglio 1744","In mezzo alla piazza","Il fantino dell'Oca, Ministro, scavalla il torraiolo Cerrino, scaraventandolo, pare, addirittura al centro della piazza."],
+   ["1747","Due Palii e una festa","A luglio la Torre, con il miglior cavallo e Bechino, viene fermata dalla Pantera e vince l'Oca. Per tradizione toccherebbe all'Oca organizzare il Palio d'agosto: la Torre la anticipa, con la corsa e una sontuosa festa per tutta la città."],
+   ["Luglio 1809","Riesplode","L'Oca è favorita con il miglior cavallo e Piaccina, ultraquarantenne. Alla mossa il fantino della Torre lo trattiene con vigore, impedendogli di partire, e l'inimicizia riesplode in tutta la sua violenza."]]},
+ {k:"ondtor",a:"onda",b:"torre",since:"sec. XVII",
+  t:["Antica e recente, sentita e snobbata"],
+  intro:"«E' antica ma anche recente, è dinamica ed al contempo statica, è sentita da una parte e quasi snobbata dall'altra»: con l'Onda, la Torre è l'unica contrada ad avere due avversarie.",
+  ep:[["1622 e 1641","La frontiera del Mercato","Scontri accesi, probabilmente per i confini su Piazza del Mercato. Poi alcuni ondaioli sottraggono alla Torre un tamburo d'ottone, di cui la Torre chiede invano la restituzione."],
+   ["Luglio 1688","L'alabarda","Vince l'Istrice con Monco. Durante la corsa il fantino della Torre trattiene quello dell'Onda fino al Casato, dove un alfiere di Salicotto afferra le redini del cavallo rivale. Dopo il Palio un ondaiolo colpisce con un'alabarda l'alfiere della Torre, che muore. Comincia una faida: sfratti e licenziamenti, da una parte e dall'altra."],
+   ["26 luglio 1713","La festa titolare","A una serata danzante nasce un diverbio tra il cappellaio ondaiolo Santi Pierucci e il torraiolo Orazio Mannotti, che è capitano. Quella notte, in Via San Salvadore, Mannotti viene ucciso; l'omicida fugge a Napoli."],
+   ["10 agosto 1713","Il tamburo restituito","Davanti al notaio, l'accordo: l'Onda restituisce il tamburo d'ottone, affidato al Castellano della Fortezza come giudice imparziale. Sbandierate, fuochi e un convivio in Piazza del Campo."],
+   ["Luglio 1811","Due giri o tre?","Vince la Torre con Pettiere. L'Onda, seconda con il famoso Caino, sostiene che Pettiere abbia fatto solo due giri. Tumulto; entrambi i popoli vanno in Provenzano per il Te Deum. La tregua del 1713 era stata effimera."]]},
+
+ {k:"pansel",a:"pantera",b:"selva"},
 ];
 R.forEach(r=>{r.file="rivali_"+r.k+".htm"});
 
@@ -225,6 +243,9 @@ const OGGI=[
  {h:"Il Te Deum a quattro",b:"Agosto 1701: vincitrice e seconda vanno insieme, con la loro alleata, a cantare il Te Deum nella chiesa dell'Oca.",r:"chitar"},
  {h:"Una bandiera sul lato sbagliato",b:"Via Garibaldi, luglio 1929: basta una bandiera in più perché due alleate smettano di esserlo.",r:"istlup"},
  {h:"L'accattano",b:"1730: per poter chiedere la questua in Piazza Postierla, la Pantera accetta di rinnovare il patto ogni tre anni. Nasce un'amicizia che durerà due secoli.",r:"aqupan"},
+ {h:"Il baldacchino del Duomo",b:"26 luglio 1671: all'ingresso del Duomo, Oca e Torre si contendono a bastonate il tendaggio della processione per il nuovo Arcivescovo.",r:"ocator"},
+ {h:"Il tamburo d'ottone",b:"Sottratto alla Torre nel Seicento, restituito dall'Onda solo nel 1713, davanti a un notaio, e affidato al Castellano della Fortezza.",r:"ondtor"},
+ {h:"Due giri o tre?",b:"Luglio 1811: la Torre vince con Pettiere, e l'Onda giura che abbia fatto solo due giri.",r:"ondtor"},
  {h:"La Contrada che vince di più",b:"L'Oca: 65 Palii vinti, secondo il totale di Orlando Papei. La seconda, la Tartuca, ne ha 47½: sì, mezza vittoria esiste.",r:null,f:"vinti.htm"},
 ];
 
