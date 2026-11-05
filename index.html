@@ -48,7 +48,7 @@ svg{display:block;max-width:100%}
 @keyframes unspin{to{transform:rotate(-360deg)}}
 .flag g.fl{transition:transform .4s ease}
 .flag:hover g.fl,.flag:focus g.fl{transform:scale(1.35)}
-.flag text{font-family:var(--serif);font-size:13px;fill:#f6ecd7;letter-spacing:.06em;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
+.flag text{font-family:var(--serif);font-size:12px;fill:#f6ecd7;letter-spacing:.06em;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
 .wave{animation:wave 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
 @keyframes wave{50%{transform:skewY(5deg) scaleX(.94)}}
 .cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:6px 14px 40px}
@@ -108,11 +108,11 @@ nav.tabs a.on{background:var(--gold);color:#2a1a14;border-color:var(--gold)}
 /* web */
 .webwrap{background:radial-gradient(circle at 50% 40%,#2d1a4a,#1b1230 70%);padding:0 0 30px}
 .webwrap svg{margin:0 auto;width:min(100%,640px)}
-.edge{stroke:#c8553d;stroke-width:1.6;opacity:.55;cursor:pointer;transition:all .3s}
+.edge{stroke:#e0703f;stroke-width:3;opacity:.7;cursor:pointer;transition:all .3s}
 .edge:hover,.edge.hl{opacity:1;stroke-width:4;stroke:#ff8a5c}
 .edge.dim{opacity:.1}
 .node{cursor:pointer}
-.node text{font-family:var(--sans);font-size:10.5px;fill:#f6ecd7;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
+.node text{font-family:var(--sans);font-size:12px;fill:#f6ecd7;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
 .episodes{list-style:none;padding:0;margin:20px 0;position:relative}
 .episodes:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--gold),var(--ember))}
 .episodes li{position:relative;padding:0 0 22px 36px}
@@ -232,6 +232,7 @@ const Q=[
  {q:"Il tuo animale interiore?",o:[["Quello che nessuno vede arrivare",["pantera","civetta","drago"]],["Quello che non molla",["tartuca","chiocciola","istrice"]],["Quello che corre",["valdimontone","nicchio","selva"]],["Quello che sta in alto",["aquila","giraffa","torre"]]]},
  {q:"Cosa fai dopo una sconfitta?",o:[["Canto lo stesso",["onda","oca","bruco"]],["Prometto vendetta, con garbo",["pantera","aquila","lupa"]],["Aspetto. Il Palio è lungo",["tartuca","selva","torre"]],["Offro da bere ai rivali",["leocorno","nicchio","giraffa"]]]},
 ];
+const TEMPI=[["2 luglio 2023","Selva","Violenta da Clodia","Tittia","1'12\"39"],["17 agosto 2022","Leocorno","Violenta da Clodia","Tittia","1'12\"66"],["17 agosto 2015","Selva","Polonski","Tittia","1'12\"69"],["16 agosto 2025","Valdimontone","Anda e Bola","Gingillo","1'12\"70"],["16 agosto 1991","Pantera","Pytheos","Il Pesse","1'12\"8"],["2 luglio 2009","Tartuca","Già del Menhir","Gingillo","1'13\"00"],["16 agosto 2010","Tartuca","Istriceddu","Trecciolino","1'13\"20"],["18 agosto 2026","Nicchio","Anda e Bola","Tittia","1'13\"22"],["16 agosto 2006","Selva","Caro Amico","Salasso","1'13\"23"],["2 luglio 2018","Drago","Rocco Nice","Brio","1'13\"27"]];
 const NOTES={}; /* storie per contrada: solo dove l'archivio è stato letto */
 const WORLD={
  aquila:"Con la Pantera ha vissuto due secoli d'alleanza e poi una rottura nel 1947: la sua storia nel Palio è un amore finito, raccontato qui nei dettagli.",
@@ -456,7 +457,11 @@ function stats(){
    <div class="chips" id="era"></div><div class="chips" id="sort"></div>
    <div class="bars" id="bars"></div>
    <p>${fonte("vinti.htm","vinti.htm — totali per secolo")} · <span style="font-size:13px">I conteggi del Seicento si riferiscono a vittorie accertate; ½ = Palio assegnato a metà.</span></p>
-   <div class="card" id="pop" hidden></div></div></div>`;
+   <div class="card" id="pop" hidden></div>
+   <h3 style="margin-top:2.2em">${lang==="it"?"I dieci Palii più veloci":"The ten fastest Palii"}</h3>
+   <p style="font-size:15px;opacity:.8">${lang==="it"?"Dai tempi della corsa riportati in archivio (dal 1925 in poi). Tocca una riga per entrare nella contrada.":"From the race times in the archive (1925 onward). Tap a row to enter the contrada."}</p>
+   <ol style="list-style:none;padding:0;margin:12px 0">${TEMPI.map((r,i)=>{const c=byId[r[1].toLowerCase()];return `<li><a href="#/c/${c.id}" style="display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;padding:10px 12px;margin-bottom:8px;border-radius:14px;background:#fffaf0;border-left:6px solid ${c.col[0]};color:var(--ink);text-decoration:none"><span style="opacity:.5;font-family:var(--sans)">${i+1}</span><span><b style="font-weight:400;font-size:18px">${c.n}</b><br><small style="font-family:var(--sans);opacity:.7">${r[0]} · ${r[2]} · ${r[3]}</small></span><b style="font-family:var(--sans);font-weight:600">${r[4]}</b></a></li>`}).join("")}</ol>
+   <p>${fonte("tempi.htm","tempi.htm")} · <span style="font-size:13px">Tempi a cura del canale Telegram «Il Palio di Siena», come riportati dall'archivio.</span></p></div></div>`;
 }
 let S={era:5,sort:"w"};
 function drawBars(){

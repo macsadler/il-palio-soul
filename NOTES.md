@@ -15,4 +15,4 @@ Sito statico (index.html, nessuna dipendenza, nessuna richiesta esterna). Dati e
 
 ## Non ancora fatto
 - Mappa dei tre Terzi, percorsi, chiese/fontane/musei (solo con "da verificare").
-- Tempi e cavalli (tempi.htm scaricato, non ancora usato).
+- Cavalli e fantini (schede) non ancora usati; tempi: top 10 da tempi.htm (pagina Palii vinti).
