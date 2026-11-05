@@ -29,7 +29,18 @@ for f in sorted(os.listdir(R+'/races')):
     # winner jockey/horse from timeline-less race: use winning row
     races.append([f[:-5],y,mo,d,typ,win[1] if win else '',h1,parts])
 races.sort(key=lambda r:(r[1],r[2],r[3]))
-out='window.PALIO_DATA='+json.dumps({'r':races,'j':J,'h':H},ensure_ascii=False,separators=(',',':'))+';\n'
+# the prototype has two pages for some postponed races (e.g. 1806-2-7 and 1806-3-7): keep the fuller one, alias the other
+best={};alias={}
+for r in races:
+    if not r[5] or not r[3]: continue
+    k=(r[1],r[2],r[3],r[5])
+    if k in best:
+        a,b=(best[k],r) if len(best[k][7])>=len(r[7]) else (r,best[k])
+        alias[b[0]]=a[0]; best[k]=a
+    else: best[k]=r
+races=[r for r in races if r[0] not in alias]
+print('aliases',len(alias))
+out='window.PALIO_DATA='+json.dumps({'r':races,'j':J,'h':H,'a':alias},ensure_ascii=False,separators=(',',':'))+';\n'
 open(R+'/assets/palio-data.js','w',encoding='utf-8').write(out);print(len(races),len(J),len(H),len(out)//1024,'KB',sum(1 for r in races if r[7]),'with entries')
 # meta: colours/words of the 17 flags + rivalry/alliance entries, from rivalries.html (itself from ilpalio.org)
 s=open(R+'/rivalries.html',encoding='utf-8').read()

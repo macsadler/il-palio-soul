@@ -137,7 +137,7 @@
       '<div class="w-stats"><div><b>' + ws.length + '</b>' + T.wins + '</div>' + (wt.best ? '<div><b>' + wt.best.g + '</b>' + T.wait + ' · ' + wt.best.a[1] + '–' + wt.best.b[1] + '</div>' : '') + (wt.last ? '<div><b>' + wt.last[1] + '</b>' + T.now + '</div>' : '') + '</div>' +
       '<p class="w-small">' + T.derived + '. ' + (lang === 'it' ? 'Il totale ufficiale delle vittorie è quello di vinti.htm, in alto.' : 'The official win total is the vinti.htm one, above.') + '</p>';
     var s1 = sec(T.thread, inner, esc(cname(c)));
-    var h1card = main.querySelector('.card') || main.firstElementChild; h1card.parentNode.insertBefore(s1, h1card.nextSibling);
+    var hh1 = main.querySelector('h1'), h1card = (hh1 && hh1.closest('.contrada-head, .card')) || hh1 || main.firstElementChild; if (h1card === main) h1card = hh1; h1card.parentNode.insertBefore(s1, h1card.nextSibling);
     var inp = $('#w-yr', s1), out = $('#w-yrout', s1), cur = $('#w-cur', s1);
     function upd() {
       var y = +inp.value, x = (y - first) / (last - first) * 1000; cur.setAttribute('x1', x); cur.setAttribute('x2', x);
@@ -207,7 +207,7 @@
   }
   /* ---------- race page ---------- */
   function racePage(id) {
-    var main = $('#main'), i = -1; D.r.forEach(function (r, k) { if (r[0] === id) i = k; }); if (!main || i < 0) return;
+    var main = $('#main'), i = -1; id = (D.a && D.a[id]) || id; D.r.forEach(function (r, k) { if (r[0] === id) i = k; }); if (!main || i < 0) return;
     var r = D.r[i], h = '';
     if (r[7].length) {
       h += '<div class="w-gate">' + r[7].map(function (p, n) { var k = col(p[0]); return '<a href="' + root + 'contrade/' + p[0] + '.html" class="' + (p[3] ? 'win' : '') + '" style="--a:' + k[0] + ';--b:' + (k[1] || k[0]) + ';animation-delay:' + n * 80 + 'ms"><i></i><span>' + esc(cname(p[0])) + '</span></a>'; }).join('') + '</div>';

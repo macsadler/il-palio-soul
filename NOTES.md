@@ -30,7 +30,7 @@ Rebuild order: import, then build_data, then inject_wonder.
 ## Truth rules as applied
 - Official win totals come **only from vinti.htm** (on the contrada pages, home and stats; Oca 65, Chiocciola 49, Tartuca 47½…).
 - Heart-layer counts ("vittorie nelle schede", waits, head to head, career arcs) are **derivato** from the race pages and labelled so.
-  They can differ from vinti.htm (e.g. Oca 67 in the race records against 65 official) because the race records include races that vinti.htm counts differently. Each heart-layer section says so.
+  After merging 31 duplicate race pages (postponed races with two pages), most match vinti.htm; any difference stays labelled.
 - "Attesa più lunga" is computed only between wins present in the race records; gaps in early centuries may come from missing records.
 - Rivalry status ("in essere / estinta / sporadica") is as stated on rivali.htm, written in 2001–2002, not checked against today.
 - Quotes are short and credited, each with a Fonte link to its archive page.
