@@ -265,6 +265,39 @@
     $('#w-a').onchange = draw; $('#w-b').onchange = draw; draw();
   }
 
+
+  /* ---------- stats: the race of the centuries (cumulative wins from race records, derived) ---------- */
+  function statsPage() {
+    var main = $('#main'); if (!main) return;
+    var ids = Object.keys(M.c), wins = D.r.filter(function (r) { return r[5]; });
+    var it = lang === 'it';
+    var s = sec(it ? 'La corsa dei secoli' : 'The race of the centuries',
+      '<p>' + (it ? 'Trascina l\'anno: le diciassette Contrade si sorpassano, Palio dopo Palio, dal 1633 a oggi.' : 'Drag the year: the seventeen Contrade overtake each other, Palio after Palio, from 1633 to today.') + '</p>' +
+      '<div class="w-race-y"><b id="w-ry">1700</b><button type="button" class="w-btn ghost" id="w-play">▶ ' + (it ? 'Guarda' : 'Play') + '</button></div>' +
+      '<input type="range" id="w-rr" min="1633" max="2026" value="1700" style="width:100%;accent-color:var(--w-red)">' +
+      '<div class="w-race" id="w-race"></div><p class="w-small" id="w-rlast"></p><p class="w-small">' + T.derived + (it ? '. I totali ufficiali (vinti.htm) sono qui sotto.' : '. Official totals (vinti.htm) are below.') + '</p>', it ? 'Statistiche' : 'Statistics');
+    var h1 = main.querySelector('h1'); h1.parentNode.insertBefore(s, h1.nextElementSibling ? h1.nextElementSibling.nextSibling : null);
+    var box = $('#w-race', s), rows = {};
+    ids.forEach(function (c) { var k = col(c); var a = document.createElement('a'); a.href = root + 'contrade/' + c + '.html'; a.className = 'w-rrow';
+      a.innerHTML = '<span class="nm">' + esc(cname(c)) + '</span><span class="bar" style="background:linear-gradient(90deg,' + k[0] + ',' + (k[1] || k[0]) + ')"></span><b>0</b>'; box.appendChild(a); rows[c] = a; });
+    var inp = $('#w-rr', s);
+    function upd() {
+      var y = +inp.value, cnt = {}, last = null; ids.forEach(function (c) { cnt[c] = 0; });
+      wins.forEach(function (r) { if (r[1] <= y) { cnt[r[5]]++; last = r; } });
+      var order = ids.slice().sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); }), mx = Math.max(1, cnt[order[0]]);
+      order.forEach(function (c, i) { var a = rows[c]; a.style.transform = 'translateY(' + i * 30 + 'px)'; a.querySelector('.bar').style.width = (cnt[c] / mx * 100) + '%'; a.querySelector('b').textContent = cnt[c]; });
+      box.style.height = ids.length * 30 + 'px'; $('#w-ry', s).textContent = y;
+      $('#w-rlast', s).innerHTML = last ? (it ? 'Ultimo Palio fino a qui: ' : 'Latest Palio so far: ') + '<a href="' + rlink(last) + '">' + esc(rlabel(last)) + ' · ' + esc(cname(last[5])) + '</a>' : '';
+    }
+    inp.oninput = upd; upd();
+    var timer = null;
+    $('#w-play', s).onclick = function () {
+      if (timer) { clearInterval(timer); timer = null; return; }
+      if (+inp.value >= 2026) inp.value = 1633;
+      timer = setInterval(function () { inp.value = +inp.value + 2; upd(); if (+inp.value >= 2026) { clearInterval(timer); timer = null; } }, 90);
+    };
+  }
+
   function run() {
     css(); nav();
     var tg = document.getElementById('lang-toggle'); if (tg) tg.addEventListener('click', function () { setTimeout(function () { location.reload(); }, 60); });
@@ -281,6 +314,7 @@
           else if (document.body.classList.contains('is-home') || (p.dir === 'contrade' && p.file === 'index')) homeRing();
           else if (p.file === 'timeline') timelinePage();
           else if (p.file === 'compare') comparePage();
+          else if (p.dir === 'stats' && p.file === 'index') statsPage();
         } catch (e) { if (window.console) console.warn('wonder', e); }
       });
     });
