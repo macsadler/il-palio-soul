@@ -328,6 +328,14 @@
       return '<div class="w-wait"><a class="nm" href="' + root + 'contrade/' + x.c + '.html">' + esc(cname(x.c)) + '</a><span class="tr"><a href="' + rlink(x.a) + '">' + x.a[1] + '</a><i style="width:' + (x.g / mxg * 100) + '%;background:linear-gradient(90deg,' + k[0] + ',' + (k[1] || k[0]) + ')"></i><a href="' + rlink(x.b) + '">' + x.b[1] + '</a></span><b>' + x.g + '</b></div>';
     }).join('') + '</div><p class="w-small">' + T.derived + (it ? ' (anni fra due vittorie presenti nelle schede).' : ' (years between two wins in the records).') + '</p>';
     s.parentNode.insertBefore(sec(it ? 'Le grandi attese' : 'The great waits', wh), s.nextSibling);
+    // who is waiting today: years since the last win in the records
+    var lastR = D.r[D.r.length - 1], nowY = lastR[1];
+    var cw = ids.map(function (c) { var ws = contradaWins(c); var l = ws[ws.length - 1]; return { c: c, l: l, g: l ? nowY - l[1] : null }; }).sort(function (a, b) { return (b.g || 0) - (a.g || 0); });
+    var ch = '<p>' + (it ? 'Anni dall’ultima vittoria nelle schede, al ' : 'Years since the last win in the records, as of ') + '<a href="' + rlink(lastR) + '">' + esc(rlabel(lastR)) + '</a>.</p><div class="w-waitnow">' + cw.map(function (x) {
+      var k = col(x.c);
+      return '<a href="' + root + 'contrade/' + x.c + '.html" style="--a:' + k[0] + ';--b:' + (k[1] || k[0]) + '"><i></i><b>' + (x.g === 0 ? '★' : x.g) + '</b><span>' + esc(cname(x.c)) + '</span><small>' + (x.l ? x.l[1] : '') + '</small></a>';
+    }).join('') + '</div><p class="w-small">' + T.derived + '</p>';
+    s.parentNode.insertBefore(sec(it ? 'Chi aspetta oggi' : 'Who is waiting now', ch), s.nextSibling);
     var timer = null;
     $('#w-play', s).onclick = function () {
       if (timer) { clearInterval(timer); timer = null; return; }

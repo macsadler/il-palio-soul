@@ -15,7 +15,7 @@ No ads, no tracking, no commercial links. No hotlinked images: `<img>`/`<image>`
 | `jockeys/*.html` (~595) | Jockey profiles + **career arc**, contrade ridden, victories, who it left behind / who won when it ran | prototype + heart layer |
 | `horses/*.html` (~1290) | Horse profiles + **race cards** and jockeys | prototype + heart layer |
 | `races/*.html` (~757) | Race pages + **starting gate**, **same day in other years**, prev/next | prototype + heart layer |
-| `stats/`, `rivalries.html` | Statistics, times, "Amiche e rivali" map + **La corsa dei secoli** (drag or play the years; contrade overtake each other, cumulative wins from race records, derivato) | prototype + heart layer |
+| `stats/`, `rivalries.html` | Statistics, times, "Amiche e rivali" map + **La corsa dei secoli** (drag or play the years), **Le grandi attese** (longest waits), **Chi aspetta oggi** (years since last win); all derivato | prototype + heart layer |
 | `compare.html` | **New**: contrada vs contrada (two timelines, head to head, waits, rivalry/alliance quotes) | heart layer |
 | `campo.html` | **New**: the Campo experience (flag ring, contrada worlds, serialized rivalry stories, Oggi nel Palio, quiz, wins by century, fastest times); links to the real pages | own text paraphrasing rivali_*.htm; vinti.htm; tempi.htm |
 | `archive/` (~60 page types) | All archive page types. Heavy, image-only types (postcard_viewer, postcard_gallery, papei_genealogy, pallini_sonnets, coffee_cups, liquor_bottles, palio_books, other_palio_prose, quercegrossa) keep only their index lists; each item links to its **archivio originale** on www.ilpalio.org. The search index links them the same way. | prototype |
