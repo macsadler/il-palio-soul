@@ -46,4 +46,4 @@ Rebuild order: import, then build_data, then inject_wonder.
 - Horse genealogies (no parsed parent data yet), jockey families.
 - Terzi map with territories (only with "da verificare").
 - Campo ring on the contrade index; IT/EN for the heart layer is applied at page load (toggle, then reload, to switch it).
-- Episodes written for 7 of 13 rivalry pages (Oca–Torre and Onda–Torre added); 6 remain (Bruco–Giraffa, Bruco–Nicchio, Drago–Lupa, Nicchio–Oca, Nicchio–Torre, Pantera–Selva).
+- Episodes written for 11 of 13 rivalry pages; Bruco–Giraffa and Nicchio–Oca remain (link only).
