@@ -83,3 +83,9 @@
 .w-rrow b{font-family:var(--sans,system-ui);font-size:13px}
 .w-door{background:linear-gradient(160deg,#fff6e0,#f0dcae);border-top-color:var(--w-red)}
 .w-door blockquote{font-size:19px;line-height:1.5}
+.w-heroes{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
+.w-heroes a{position:relative;display:block;text-decoration:none;color:var(--w-ink);background:#fff;border-radius:14px;padding:10px;border-bottom:4px solid var(--a);text-align:center;transition:transform .25s}
+.w-heroes a:hover{transform:translateY(-3px)}
+.w-heroes b{display:block;font-family:var(--serif,Georgia);font-size:30px;font-weight:400;color:var(--w-gold);line-height:1}
+.w-heroes span{font-family:var(--sans,system-ui);font-size:12.5px}
+.w-heroes i{position:absolute;top:6px;right:8px;font-style:normal;color:var(--w-gold)}

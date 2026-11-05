@@ -145,6 +145,16 @@
       out.innerHTML = '<b>' + y + '</b> ' + (rs.length ? rs.map(function (r) { return '<a class="w-pill' + (r[5] === c ? ' me' : '') + '" href="' + rlink(r) + '" style="--a:' + col(r[5])[0] + '">' + esc(rlabel(r)) + ' · ' + esc(cname(r[5])) + '</a>'; }).join('') : '<span class="w-small">—</span>');
     }
     inp.oninput = upd; upd();
+    // its heroes: jockeys and horses who won for this contrada (race records)
+    var jw = {}, hw = {};
+    D.r.forEach(function (r) { r[7].forEach(function (p) { if (p[0] === c && p[3]) { if (p[1]) jw[p[1]] = (jw[p[1]] || 0) + 1; if (p[2]) hw[p[2]] = (hw[p[2]] || 0) + 1; } }); });
+    var jk = Object.keys(jw).sort(function (a, b) { return jw[b] - jw[a] || D.j[a].localeCompare(D.j[b]); }), hk = Object.keys(hw).sort(function (a, b) { return hw[b] - hw[a]; });
+    if (jk.length) {
+      var it = lang === 'it';
+      var hh = '<h3>' + (it ? 'I fantini' : 'The jockeys') + '</h3><div class="w-heroes">' + jk.slice(0, 12).map(function (j, i) { return '<a href="' + root + 'jockeys/' + j + '.html" style="--a:' + k[0] + '"><b>' + jw[j] + '</b><span>' + esc(D.j[j]) + '</span>' + (i === 0 ? '<i>★</i>' : '') + '</a>'; }).join('') + '</div>' +
+        '<h3>' + (it ? 'I cavalli' : 'The horses') + '</h3><div class="w-field">' + hk.slice(0, 24).map(function (h) { return '<a class="w-pill" style="--a:' + k[0] + '" href="' + root + 'horses/' + h + '.html">' + esc(D.h[h]) + (hw[h] > 1 ? ' · ' + hw[h] : '') + '</a>'; }).join('') + '</div><p class="w-small">' + T.derived + '</p>';
+      s1.parentNode.insertBefore(sec(it ? 'Chi l’ha fatta vincere' : 'Who brought it victory', hh), s1.nextSibling);
+    }
     // friends & rivals
     var rel = M.rel.filter(function (r) { return r.a === c || r.b === c; }), al = M.all.filter(function (a) { return a.m.indexOf(c) >= 0; });
     if (rel.length || al.length) {
