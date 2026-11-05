@@ -63,9 +63,9 @@
 @keyframes wunspin{to{transform:rotate(-360deg)}}
 .w-flag:hover .w-fl,.w-flag:focus .w-fl{scale:1.3}
 .w-flag text{fill:#f6ecd7;font-family:var(--serif,Georgia);font-size:19px;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
-.w-sticky{position:sticky;top:0;z-index:5;padding:12px 16px}
+.w-sticky{position:sticky;top:0;z-index:5;padding:12px 16px;margin:14px 0}
 .w-sticky input{width:100%;accent-color:var(--w-red)}
-.w-spark{display:flex;gap:2px;height:30px;align-items:flex-end}
+.w-spark{display:flex;gap:2px;height:88px;align-items:flex-end;overflow:hidden;margin-top:8px}
 .w-spark a{flex:1;display:flex;flex-direction:column-reverse;gap:1px;min-width:0}
 .w-spark i{display:block;height:3px;border-radius:1px}
 .w-pick{display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0 18px;font-size:22px}
@@ -94,3 +94,4 @@
 .w-serial h3{font-size:24px;margin:.2em 0 .3em}
 .w-serial h3 span{color:var(--w-red)}
 .w-serial p{font-size:15.5px}
+@media (max-width:700px){.w-sticky{position:static}}
