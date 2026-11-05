@@ -62,7 +62,7 @@
 .w-fl{transform-box:fill-box;transform-origin:center;animation:wunspin 240s linear infinite;transition:scale .3s}
 @keyframes wunspin{to{transform:rotate(-360deg)}}
 .w-flag:hover .w-fl,.w-flag:focus .w-fl{scale:1.3}
-.w-flag text{fill:#f6ecd7;font-family:var(--serif,Georgia);font-size:13px;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
+.w-flag text{fill:#f6ecd7;font-family:var(--serif,Georgia);font-size:19px;paint-order:stroke;stroke:#1b1230;stroke-width:3px}
 .w-sticky{position:sticky;top:0;z-index:5;padding:12px 16px}
 .w-sticky input{width:100%;accent-color:var(--w-red)}
 .w-spark{display:flex;gap:2px;height:30px;align-items:flex-end}
@@ -81,3 +81,5 @@
 .w-rrow .nm{font-family:var(--sans,system-ui);font-size:13px;text-align:right}
 .w-rrow .bar{display:block;height:18px;border-radius:9px;transition:width .45s cubic-bezier(.22,.61,.36,1);box-shadow:inset 0 0 0 1px #0002;min-width:3px}
 .w-rrow b{font-family:var(--sans,system-ui);font-size:13px}
+.w-door{background:linear-gradient(160deg,#fff6e0,#f0dcae);border-top-color:var(--w-red)}
+.w-door blockquote{font-size:19px;line-height:1.5}

@@ -211,12 +211,12 @@
   /* ---------- home: the Campo ring, wired to the real contrada pages ---------- */
   function homeRing() {
     var main = $('#main'); if (!main) return;
-    var ids = Object.keys(M.c).sort(), g = '', R = 230;
+    var ids = Object.keys(M.c).sort(), g = '', R = 238;
     ids.forEach(function (c, i) {
       var a = i / ids.length * Math.PI * 2 - Math.PI / 2, x = 300 + R * Math.cos(a), y = 300 + R * Math.sin(a), k = col(c);
-      g += '<g transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><a href="' + root + 'contrade/' + c + '.html" class="w-flag"><g class="w-fl"><path d="M-16 -22 H16 V8 Q16 20 0 26 Q-16 20 -16 8Z" fill="' + k[0] + '" stroke="var(--w-gold)" stroke-width="2"/><path d="M-16 -22 L16 8 V-22Z" fill="' + (k[1] || k[0]) + '" opacity=".9"/><text y="44" text-anchor="middle">' + esc(cname(c)) + '</text></g></a></g>';
+      g += '<g transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><a href="' + root + 'contrade/' + c + '.html" class="w-flag"><g class="w-fl" transform="scale(1.25)"><path d="M-16 -22 H16 V8 Q16 20 0 26 Q-16 20 -16 8Z" fill="' + k[0] + '" stroke="var(--w-gold)" stroke-width="2"/><path d="M-16 -22 L16 8 V-22Z" fill="' + (k[1] || k[0]) + '" opacity=".9"/><text y="46" text-anchor="middle">' + esc(cname(c)) + '</text></g></a></g>';
     });
-    var svg = '<svg viewBox="0 0 600 600" class="w-ring" role="img" aria-label="' + T.ring + '"><defs><radialGradient id="wg"><stop offset="0" stop-color="#ffb35c" stop-opacity=".6"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>' +
+    var svg = '<svg viewBox="-60 -10 720 620" class="w-ring" role="img" aria-label="' + T.ring + '"><defs><radialGradient id="wg"><stop offset="0" stop-color="#ffb35c" stop-opacity=".6"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>' +
       '<circle cx="300" cy="300" r="290" fill="url(#wg)"/><path d="M130 330 Q300 120 470 330 Q300 450 130 330Z" fill="#b5794c"/>' +
       (function () { var s = ''; for (var i = 0; i < 9; i++) { var a0 = (-70 + i * 15.5) * Math.PI / 180, a1 = (-70 + (i + 1) * 15.5) * Math.PI / 180; s += '<path d="M300 360 L' + (300 + 175 * Math.sin(a0)).toFixed(1) + ' ' + (360 - 150 * Math.cos(a0)).toFixed(1) + ' L' + (300 + 175 * Math.sin(a1)).toFixed(1) + ' ' + (360 - 150 * Math.cos(a1)).toFixed(1) + 'Z" fill="' + (i % 2 ? '#d8b07a' : '#c99a60') + '"/>'; } return s; })() +
       '<rect x="262" y="330" width="76" height="30" fill="#9b4a35"/><rect x="293" y="190" width="14" height="140" fill="#8e3f2d"/><rect x="287" y="176" width="26" height="18" fill="#a64d38"/><path d="M294 176 L300 150 L306 176Z" fill="#8e3f2d"/>' +
@@ -224,6 +224,15 @@
     var s = document.createElement('section'); s.className = 'w-hero';
     s.innerHTML = '<div class="w-eyebrow">' + T.campo + '</div><h2>' + T.ring + '</h2><p>' + T.ringS + '</p>' + svg + '<p><a class="w-btn" href="' + root + 'campo.html">' + T.campo + ' →</a> <a class="w-btn ghost" href="' + root + 'compare.html">' + T.compare + '</a> <button class="w-btn ghost" type="button" id="w-hw">✦ ' + T.wonder + '</button></p>';
     var first = main.firstElementChild; main.insertBefore(s, first && first.nextSibling);
+    // the daily door: one archive quote per day, in order (date-based, the same for everyone)
+    var q = []; M.rel.forEach(function (r) { q.push({ t: r.why, u: r.u, m: [r.a, r.b], id: r.id, h: cname(r.a) + ' × ' + cname(r.b) }); });
+    M.all.forEach(function (a) { a.q.forEach(function (x) { q.push({ t: x.t, u: x.u, m: a.m, h: a.title }); }); });
+    var d = new Date(), doy = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5), x = q[doy % q.length];
+    var door = document.createElement('section'); door.className = 'w-sec w-door';
+    door.innerHTML = '<div class="w-eyebrow">' + (lang === 'it' ? 'La porta di oggi' : 'Today\'s door') + ' · ' + d.toLocaleDateString(lang === 'it' ? 'it-IT' : 'en-GB', { day: 'numeric', month: 'long' }) + '</div><h2>' + esc(x.h) + '</h2><blockquote>«' + esc(x.t) + '»</blockquote>' +
+      '<div class="w-field">' + x.m.map(function (c) { return chip(c); }).join('') + '</div><p>' + fonte(x.u) + (x.id && STORIES[x.id] ? ' <a class="w-btn" href="' + root + 'campo.html#/rivalita/' + STORIES[x.id] + '">' + T.story + ' →</a>' : '') + '</p>' +
+      '<p class="w-small">' + (lang === 'it' ? 'Una frase dell\'archivio al giorno: domani si apre un\'altra porta.' : 'One sentence from the archive each day: tomorrow another door opens.') + '</p>';
+    s.parentNode.insertBefore(door, s.nextSibling);
     $('#w-hw', s).onclick = function () { $('.w-dock').click(); };
   }
   /* ---------- timeline scrubber ---------- */
