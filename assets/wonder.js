@@ -309,6 +309,16 @@
       $('#w-rlast', s).innerHTML = last ? (it ? 'Ultimo Palio fino a qui: ' : 'Latest Palio so far: ') + '<a href="' + rlink(last) + '">' + esc(rlabel(last)) + ' · ' + esc(cname(last[5])) + '</a>' : '';
     }
     inp.oninput = upd; upd();
+    // the great waits: every gap of 20+ years between two wins of the same contrada, longest first
+    var gaps = [];
+    ids.forEach(function (c) { var ws = contradaWins(c); for (var i = 1; i < ws.length; i++) { var g = ws[i][1] - ws[i - 1][1]; if (g >= 20) gaps.push({ c: c, g: g, a: ws[i - 1], b: ws[i] }); } });
+    gaps.sort(function (x, y) { return y.g - x.g; });
+    var mxg = gaps.length ? gaps[0].g : 1;
+    var wh = '<p>' + (it ? 'Tra una vittoria e l’altra: le attese più lunghe. Tocca un anno per aprire quel Palio.' : 'Between one win and the next: the longest waits. Tap a year to open that Palio.') + '</p><div class="w-waits">' + gaps.slice(0, 20).map(function (x) {
+      var k = col(x.c);
+      return '<div class="w-wait"><a class="nm" href="' + root + 'contrade/' + x.c + '.html">' + esc(cname(x.c)) + '</a><span class="tr"><a href="' + rlink(x.a) + '">' + x.a[1] + '</a><i style="width:' + (x.g / mxg * 100) + '%;background:linear-gradient(90deg,' + k[0] + ',' + (k[1] || k[0]) + ')"></i><a href="' + rlink(x.b) + '">' + x.b[1] + '</a></span><b>' + x.g + '</b></div>';
+    }).join('') + '</div><p class="w-small">' + T.derived + (it ? ' (anni fra due vittorie presenti nelle schede).' : ' (years between two wins in the records).') + '</p>';
+    s.parentNode.insertBefore(sec(it ? 'Le grandi attese' : 'The great waits', wh), s.nextSibling);
     var timer = null;
     $('#w-play', s).onclick = function () {
       if (timer) { clearInterval(timer); timer = null; return; }

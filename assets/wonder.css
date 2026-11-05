@@ -95,3 +95,10 @@
 .w-serial h3 span{color:var(--w-red)}
 .w-serial p{font-size:15.5px}
 @media (max-width:700px){.w-sticky{position:static}}
+.w-waits{display:flex;flex-direction:column;gap:6px}
+.w-wait{display:grid;grid-template-columns:88px 1fr 30px;gap:8px;align-items:center;font-family:var(--sans,system-ui);font-size:12.5px}
+.w-wait .nm{color:var(--w-ink);text-decoration:none;text-align:right}
+.w-wait .tr{display:flex;align-items:center;gap:6px}
+.w-wait .tr i{display:block;height:10px;border-radius:5px;min-width:8px;box-shadow:inset 0 0 0 1px #0002}
+.w-wait .tr a{color:#7a6a5a;font-size:11.5px}
+.w-wait b{font-family:var(--serif,Georgia);font-size:20px;font-weight:400;color:var(--w-red)}
