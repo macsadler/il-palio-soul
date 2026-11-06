@@ -4,6 +4,7 @@
 (function () {
   'use strict';
   var root = document.documentElement.getAttribute('data-root') || '';
+  var PALIO_STEM = {aquila:'assets/stemmi/stemminoaquila74.gif', bruco:'assets/stemmi/stemminobruco74.gif', chiocciola:'assets/stemmi/stemminochiocciola74.gif', civetta:'assets/stemmi/stemminoCIVETTA74.gif', drago:'assets/stemmi/stemminoDRAGO74.gif', giraffa:'assets/stemmi/stemminoGIRAFFA74.gif', istrice:'assets/stemmi/stemminoISTRICE74.gif', leocorno:'assets/stemmi/stemminoLEOCORNO74.gif', lupa:'assets/stemmi/stemminoLUPA74.gif', nicchio:'assets/stemmi/stemminoNICCHIO74.gif', oca:'assets/stemmi/stemminoOCA74.gif', onda:'assets/stemmi/stemminoONDA74.gif', pantera:'assets/stemmi/stemminoPANTERA75.png', selva:'assets/stemmi/stemminoSELVA74.gif', tartuca:'assets/stemmi/stemminoTARTUCA74.gif', torre:'assets/stemmi/stemminoTORRE74.gif', valdimontone:'assets/stemmi/stemminovaldiMONTONE74.gif'};
   var lang = (function () { try { return localStorage.getItem('palio-lang') || 'it'; } catch (e) { return 'it'; } })();
   var T = {
     it: { wonder: 'Meraviglia', wonderT: 'Una meraviglia a caso', again: 'Un\'altra', open: 'Apri', close: 'Chiudi',
@@ -255,7 +256,11 @@
     var ids = Object.keys(M.c).sort(), g = '', R = 238;
     ids.forEach(function (c, i) {
       var a = i / ids.length * Math.PI * 2 - Math.PI / 2, x = 300 + R * Math.cos(a), y = 300 + R * Math.sin(a), k = col(c);
-      g += '<g transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><a href="' + root + 'contrade/' + c + '.html" class="w-flag"><g class="w-fl" transform="scale(1.25)"><path d="M-16 -22 H16 V8 Q16 20 0 26 Q-16 20 -16 8Z" fill="' + k[0] + '" stroke="var(--w-gold)" stroke-width="2"/><path d="M-16 -22 L16 8 V-22Z" fill="' + (k[1] || k[0]) + '" opacity=".9"/><text y="46" text-anchor="middle">' + esc(cname(c)) + '</text></g></a></g>';
+      var stem = PALIO_STEM[c];
+      var badge = stem
+        ? '<image href="' + root + stem + '" x="-22" y="-30" width="44" height="54" preserveAspectRatio="xMidYMid meet"/>'
+        : '<text y="0" text-anchor="middle">' + esc(cname(c)) + '</text>';
+      g += '<g transform="translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')"><a href="' + root + 'contrade/' + c + '.html" class="w-flag"><g class="w-fl" transform="scale(1.25)">' + badge + '<text y="46" text-anchor="middle">' + esc(cname(c)) + '</text></g></a></g>';
     });
     var svg = '<svg viewBox="-60 -10 720 620" class="w-ring" role="img" aria-label="' + T.ring + '"><defs><radialGradient id="wg"><stop offset="0" stop-color="#ffb35c" stop-opacity=".6"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></radialGradient></defs>' +
       '<circle cx="300" cy="300" r="290" fill="url(#wg)"/><path d="M130 330 Q300 120 470 330 Q300 450 130 330Z" fill="#b5794c"/>' +

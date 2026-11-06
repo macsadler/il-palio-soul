@@ -38,7 +38,7 @@ Rebuild order: import, then build_data, then inject_wonder.
 
 ## Da verificare
 - `campo.html` now takes contrada colours from the archive arms page (araldica.htm, via palio-meta.js), quoted with Fonte.
-- Emblem drawings in campo.html are free stylisations, not official heraldry.
+- Contrada stemmi are Orlando Papei's original image files (copied unaltered from ilpalio.org / araldica.htm into assets/stemmi/). No drawn, stylised, or generated substitutes.
 - Fastest times in campo.html: parsed from tempi.htm; asterisks on some times were dropped, meaning unknown.
 - No city facts (streets, churches, fountains, museums, terzi) have been added yet: none to verify.
 
